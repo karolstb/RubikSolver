@@ -145,13 +145,13 @@ namespace RubikResolverEngine
 
             try
             {
-                List<Color> rubikColors = new List<Color>();
-                rubikColors.Add(Color.Red);
-                rubikColors.Add(Color.Blue);
-                rubikColors.Add(Color.Green);
-                rubikColors.Add(Color.White);
-                rubikColors.Add(Color.Orange);
-                rubikColors.Add(Color.Yellow);
+                //List<Color> rubikColors = new List<Color>();
+                //rubikColors.Add(Color.Red);
+                //rubikColors.Add(Color.Blue);
+                //rubikColors.Add(Color.Green);
+                //rubikColors.Add(Color.White);
+                //rubikColors.Add(Color.Orange);
+                //rubikColors.Add(Color.Yellow);
                 //Color red = Color.Red;
 
                 //red
