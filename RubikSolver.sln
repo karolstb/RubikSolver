@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubikSolver", "RubikSolver\RubikSolver.csproj", "{A6031B1D-B130-43C3-B6CE-235FA3A547D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.MDI", "dllki\WPF.MDI\WPF.MDI\WPF.MDI.csproj", "{BE1ED569-5E0B-4DF0-8964-33AD2AAE4C4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubikResolverWinForms", "RubikResolverWinForms\RubikResolverWinForms.csproj", "{92B8355A-BB6C-45B5-A678-0063DD0D3D9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubikResolverEngine", "RubikResolverEngine\RubikResolverEngine.csproj", "{B15045E3-FDD7-4776-9977-C7FE4E4B27F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A6031B1D-B130-43C3-B6CE-235FA3A547D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6031B1D-B130-43C3-B6CE-235FA3A547D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6031B1D-B130-43C3-B6CE-235FA3A547D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6031B1D-B130-43C3-B6CE-235FA3A547D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE1ED569-5E0B-4DF0-8964-33AD2AAE4C4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE1ED569-5E0B-4DF0-8964-33AD2AAE4C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE1ED569-5E0B-4DF0-8964-33AD2AAE4C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE1ED569-5E0B-4DF0-8964-33AD2AAE4C4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92B8355A-BB6C-45B5-A678-0063DD0D3D9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92B8355A-BB6C-45B5-A678-0063DD0D3D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92B8355A-BB6C-45B5-A678-0063DD0D3D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92B8355A-BB6C-45B5-A678-0063DD0D3D9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B15045E3-FDD7-4776-9977-C7FE4E4B27F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B15045E3-FDD7-4776-9977-C7FE4E4B27F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B15045E3-FDD7-4776-9977-C7FE4E4B27F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B15045E3-FDD7-4776-9977-C7FE4E4B27F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
