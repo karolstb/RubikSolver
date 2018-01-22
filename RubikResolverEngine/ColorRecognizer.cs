@@ -18,8 +18,12 @@ namespace RubikResolverEngine
 {
     public class ColorRecognizer
     {
+        Color[,] matrix;
+        int probeXsize;
+        int probeYsize;
+
         //meta ustawienia 
-        int _probeSize = 10;    //na ile kwadratów chcę podzielić krótszy bok obrazka
+        int _probeSize = 20;    //na ile kwadratów chcę podzielić krótszy bok obrazka
         Bitmap _bitmap;
         int _colorRecognizerOffsetSign = 60;    //margines błędu w przypadku składowej RGB znaczącej (np.: R dla Red)
         int _colorRecognizerOffsetNotSign = 90; //margines błędu dla składowych nieznaczących
@@ -52,8 +56,6 @@ namespace RubikResolverEngine
                 int qSize = 0;                     //wielkość w pixelach kwadrata, na które będzie podzielony obrazek
 
                 //oblicz parametry dzielenia obrazka na kwadraty
-                int probeXsize;
-                int probeYsize;
                 if (width < height)
                 {
                     qSize = width / _probeSize;
@@ -72,7 +74,7 @@ namespace RubikResolverEngine
                 //int pHeight = height / _probeYsize;
 
                 //tymczasowa siatka bitmapy z kolorami
-                Color[,] matrix = new Color[probeYsize, probeXsize];
+                matrix = new Color[probeYsize, probeXsize];
 
                 for (int i = 0; i < probeYsize; i++)
                 {
@@ -86,6 +88,7 @@ namespace RubikResolverEngine
                 }
 
                 //TODO: wykryć z matrixa siatkę 3x3 kostki rubika
+                int squareSize = GetSquareSize();
 
                 #region byle co
                 //https://stackoverflow.com/questions/1068373/how-to-calculate-the-average-rgb-color-values-of-a-bitmap
@@ -282,6 +285,58 @@ namespace RubikResolverEngine
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// zwraca długosć boku kwadratu. jednostką obliczeniową jest mały kwadracik, na które podzielono obrazek
+        /// </summary>
+        /// <returns></returns>
+        private int GetSquareSize()
+        {
+            try
+            {
+                if (matrix == null)
+                    throw new RubikException("Nie zainicjowana zmienna matrix");
+                if (matrix.Length == 0)
+                    throw new RubikException("Zmienna matrix jest pusta!");
+
+                int start = -1, end = -1;
+
+                for (int i = probeYsize/2; i < probeYsize; i++)     //zacznij od połowy kostki
+                {
+                    for (int j = 0; j < probeXsize; j++)
+                    {
+                        if (matrix[i, j] != Color.Black)
+                        {
+                            if (start == -1)
+                                start = j;
+                            else
+                                end = j;
+                        }
+                    }
+
+                    if (start >= -1 && end > -1)
+                        break;
+                    else
+                    {
+                        start = -1;
+                        end = -1;
+                    }
+                }
+
+                return (end - start) / 3;
+            }
+
+            catch (RubikException ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            throw new RubikException("Nie udało się policzyć długości jednego kwadracika");
         }
     }
 }
