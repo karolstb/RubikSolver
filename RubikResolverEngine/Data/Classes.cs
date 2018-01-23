@@ -69,6 +69,18 @@ namespace RubikResolverEngine
         }
 
         /// <summary>
+        /// zapisz całą tablicę do obiektu
+        /// </summary>
+        /// <param name="_colors"></param>
+        public void SetColors(Color[,] _colors)
+        {
+            if (_colors.GetLength(0) != 3 || _colors.GetLength(1) != 3)
+                throw new RubikException("Do funkcji Surface.SetColors przekazano tablicę kolorów o złych wymiarach (ma być 3x3)");
+
+            this.colors = _colors;
+        }
+
+        /// <summary>
         /// zwraca kolor na konkretnej pozycji
         /// </summary>
         /// <param name="row"></param>

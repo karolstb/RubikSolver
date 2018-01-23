@@ -75,15 +75,15 @@ namespace RubikResolverWinForms
 
 
                 //test
-                surface.SetColor(0, 0, Color.Red);
-                surface.SetColor(0, 1, Color.Yellow);
-                surface.SetColor(0, 2, Color.White);
-                surface.SetColor(1, 0, Color.Green);
-                surface.SetColor(1, 1, Color.Green);
-                surface.SetColor(1, 2, Color.Red);
-                surface.SetColor(2, 0, Color.Red);
-                surface.SetColor(2, 1, Color.Blue);
-                surface.SetColor(2, 2, Color.Orange);
+                //surface.SetColor(0, 0, Color.Red);
+                //surface.SetColor(0, 1, Color.Yellow);
+                //surface.SetColor(0, 2, Color.White);
+                //surface.SetColor(1, 0, Color.Green);
+                //surface.SetColor(1, 1, Color.Green);
+                //surface.SetColor(1, 2, Color.Red);
+                //surface.SetColor(2, 0, Color.Red);
+                //surface.SetColor(2, 1, Color.Blue);
+                //surface.SetColor(2, 2, Color.Orange);
 
                 //odrysuj surface na obrazku
                 if (faceNo == 1)

@@ -90,6 +90,10 @@ namespace RubikResolverEngine
                 //TODO: wykryć z matrixa siatkę 3x3 kostki rubika
                 int squareSize = GetSquareSize();
 
+                //oblicz kolory
+                var colors = GetRecognizeColors(squareSize);
+                surface.SetColors(colors);
+
                 #region byle co
                 //https://stackoverflow.com/questions/1068373/how-to-calculate-the-average-rgb-color-values-of-a-bitmap
                 //BitmapData srcData = bitmap.LockBits(
@@ -337,6 +341,62 @@ namespace RubikResolverEngine
             }
 
             throw new RubikException("Nie udało się policzyć długości jednego kwadracika");
+        }
+
+        /// <summary>
+        /// rozpoznaje już konkretne kolory na kostce
+        /// </summary>
+        /// <param name="qSize"></param>
+        /// <returns></returns>
+        private Color[,] GetRecognizeColors(int qSize)
+        {
+            //todo: źle działą - do poprawki. nie rozpoznaje dobrze kolorów (albo bierze złe próbki)
+
+            try
+            {
+                Color[,] value = new Color[3, 3];
+                int x = 0, y = 0;
+                
+                //znajdź lewy górny róg kostki
+                for (int i = 0; i < probeYsize; i++)     
+                {
+                    for (int j = 0; j < probeXsize; j++)
+                    {
+                        if (matrix[i, j] != Color.Black)
+                        {
+                            x = i;
+                            y = j;
+                            i = probeYsize + 1;  //żeby wyjść z tej pętli
+                            break;
+                        }
+                    }
+                }
+
+                //połowa boku kwadracika - do obliczeń jaki kolor
+                int halfSquare = qSize / 2;
+
+                //sprawdzaj kolory w kwadracie 3x3
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        //pobiera kolor mniej więcej z środka małego kwadracika
+                        value[i, j] = matrix[x + (i + 1) * halfSquare, y + (j + 1) * halfSquare];
+                    }
+                }
+
+                return value;
+            }
+            catch (RubikException ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            throw new RubikException("Nie udało się rozpoznać kolorów.");
         }
     }
 }
