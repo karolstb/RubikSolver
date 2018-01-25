@@ -33,7 +33,7 @@ namespace RubikResolverEngine
                 {
                     for(int j = 0; j < 3; j++)
                     {
-                        r = new Rectangle(i * rectSize, j * rectSize, rectSize, rectSize);
+                        r = new Rectangle(j * rectSize, i * rectSize, rectSize, rectSize);
                         //using(SolidBrush brush=new SolidBrush(colors[i, j]))
                         //{
                         SolidBrush brush = new SolidBrush(colors[i, j]);        //kolor

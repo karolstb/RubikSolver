@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,10 +39,22 @@ namespace RubikResolverWinForms
             openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                string FileName = openFileDialog.FileName;
+                //string FileName = openFileDialog.FileName;
+                Form activeChildForm = this.ActiveMdiChild;
+
+                if (activeChildForm is PhotoLoader)
+                {
+                    var photoLoaderForm = (PhotoLoader)activeChildForm;
+                    photoLoaderForm.OpenFaceFile(openFileDialog.FileName);
+                }
             }
         }
 
+        /// <summary>
+        /// zapisz wczytane zdjęcia do pliku
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -49,7 +62,15 @@ namespace RubikResolverWinForms
             saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                string FileName = saveFileDialog.FileName;
+                //string FileName = saveFileDialog.FileName;
+                //StreamWriter sw = new StreamWriter(saveFileDialog.FileName);
+                Form activeChildForm = this.ActiveMdiChild;
+
+                if(activeChildForm is PhotoLoader)
+                {
+                    var photoLoaderForm = (PhotoLoader)activeChildForm;
+                    photoLoaderForm.SaveFacesToFile(saveFileDialog.FileName);
+                }
             }
         }
 
@@ -106,6 +127,16 @@ namespace RubikResolverWinForms
             {
                 childForm.Close();
             }
+        }
+
+        /// <summary>
+        /// guzik zapisz
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            SaveAsToolStripMenuItem_Click(sender, e);
         }
     }
 }

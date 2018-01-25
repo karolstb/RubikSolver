@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using System.IO;
 
 //red    255 0   0
 //blue   0   0   255
@@ -23,7 +24,7 @@ namespace RubikResolverEngine
         int probeYsize;
 
         //meta ustawienia 
-        int _probeSize = 20;    //na ile kwadratów chcę podzielić krótszy bok obrazka
+        int _probeSize = 30;//20;    //na ile kwadratów chcę podzielić krótszy bok obrazka
         Bitmap _bitmap;
         int _colorRecognizerOffsetSign = 60;    //margines błędu w przypadku składowej RGB znaczącej (np.: R dla Red)
         int _colorRecognizerOffsetNotSign = 90; //margines błędu dla składowych nieznaczących
@@ -85,6 +86,17 @@ namespace RubikResolverEngine
                         matrix[i, j] = GetAvgColor(partBitmap);                                         //oblicz uśredniony kolor
                         matrix[i, j] = ProcessForRubikColors(matrix[i, j]);                             //sprawdź czy jest tam jakiś kolor z kostki rubika
                     }
+                }
+
+                //test
+                for (int i = 0; i < probeYsize; i++)
+                {
+                    for (int j = 0; j < probeXsize; j++)
+                    {
+                        File.AppendAllText("matrix2.txt", matrix[i, j].ToString()+"  ");
+                    }
+
+                    File.AppendAllText("matrix2.txt", Environment.NewLine);
                 }
 
                 //TODO: wykryć z matrixa siatkę 3x3 kostki rubika
@@ -184,7 +196,7 @@ namespace RubikResolverEngine
 
                 //orange
                 if (Color.Orange.R - clr.R < _colorRecognizerOffsetSign
-                    && Math.Abs(Color.Orange.G - clr.G) < _colorRecognizerOffsetSign
+                    && Math.Abs(Color.Orange.G - clr.G) < 30//_colorRecognizerOffsetSign
                     && clr.B <= _colorRecognizerOffsetNotSign)
                     return Color.Orange;
 
@@ -381,7 +393,8 @@ namespace RubikResolverEngine
                     for (int j = 0; j < 3; j++)
                     {
                         //pobiera kolor mniej więcej z środka małego kwadracika
-                        value[i, j] = matrix[x + (i + 1) * halfSquare, y + (j + 1) * halfSquare];
+                        //value[i, j] = matrix[x + (i + 1) * halfSquare, y + (j + 1) * halfSquare];
+                        value[i, j] = matrix[x + halfSquare + i * qSize, y + halfSquare + j * qSize];
                     }
                 }
 
