@@ -89,6 +89,7 @@ namespace RubikResolverEngine
                 }
 
                 //test
+                File.WriteAllText("matrix2.txt", "");
                 for (int i = 0; i < probeYsize; i++)
                 {
                     for (int j = 0; j < probeXsize; j++)
@@ -173,6 +174,35 @@ namespace RubikResolverEngine
                 //rubikColors.Add(Color.Yellow);
                 //Color red = Color.Red;
 
+                //WERSJA I
+                /*
+                //red
+                if (clr.R > 180 && clr.G < 70 & clr.B < 70)
+                    return Color.Red;
+
+                //blue
+                if (clr.R < 80 && clr.G < 200 && clr.B > 180)
+                    return Color.Blue;
+
+                //green
+                if ((clr.G - clr.R > 100 && clr.G - clr.B > 100)
+                    || (clr.G > 120 && clr.G - clr.R > 25 && clr.G - clr.B > 25))
+                    return Color.Green;
+
+                //white
+                if (clr.R > 232 && clr.G > 232 && clr.B > 232)
+                    return Color.White;
+
+                //orange
+                if (clr.R - clr.G > 100 && clr.G - clr.B > 100)
+                    return Color.Orange;
+
+                //yellowe
+                if (clr.R > 200 && clr.G > 200 && clr.B < 150)
+                    return Color.Yellow;
+                */
+                    
+                //WERSKA II
                 //red
                 if (Color.Red.R - clr.R < _colorRecognizerOffsetSign
                     && clr.G <= _colorRecognizerOffsetNotSign && clr.B <= _colorRecognizerOffsetNotSign)
@@ -206,6 +236,8 @@ namespace RubikResolverEngine
                     && clr.B <= _colorRecognizerOffsetNotSign)
                     return Color.Yellow;
 
+                
+                
                 //foreach (Color color in rubikColors)
                 //{
                     //inna metoda (nie działa)
@@ -393,8 +425,22 @@ namespace RubikResolverEngine
                     for (int j = 0; j < 3; j++)
                     {
                         //pobiera kolor mniej więcej z środka małego kwadracika
-                        //value[i, j] = matrix[x + (i + 1) * halfSquare, y + (j + 1) * halfSquare];
-                        value[i, j] = matrix[x + halfSquare + i * qSize, y + halfSquare + j * qSize];
+                        //pobiera po prostu jedną próbkę i na podstawie jej wyznacza kolor kwadratu
+                        //value[i, j] = matrix[x + halfSquare + i * qSize, y + halfSquare + j * qSize];
+                        //sprawdź kolory na około i czego jest więcej to zapisz
+                        int centerX = x + halfSquare + i * qSize;
+                        int centerY = y + halfSquare + j * qSize;
+                        Color[,] tmpClrTab = new Color[3, 3];
+                        tmpClrTab[0, 0] = matrix[centerX - 1, centerY - 1];
+                        tmpClrTab[0, 1] = matrix[centerX - 1, centerY];
+                        tmpClrTab[0, 2] = matrix[centerX - 1, centerY + 1];
+                        tmpClrTab[1, 0] = matrix[centerX, centerY - 1];
+                        tmpClrTab[1, 1] = matrix[centerX, centerY];
+                        tmpClrTab[1, 2] = matrix[centerX, centerY + 1];
+                        tmpClrTab[2, 0] = matrix[centerX + 1, centerY - 1];
+                        tmpClrTab[2, 1] = matrix[centerX + 1, centerY];
+                        tmpClrTab[2, 2] = matrix[centerX + 1, centerY + 1];
+                        value[i, j] = ApproximateColor(tmpClrTab);
                     }
                 }
 
@@ -411,5 +457,42 @@ namespace RubikResolverEngine
 
             throw new RubikException("Nie udało się rozpoznać kolorów.");
         }
+
+        /// <summary>
+        /// zwraca kolor, którego jest najwięcej w przekazanej tablicy
+        /// </summary>
+        /// <param name="aprxMatrix"></param>
+        /// <returns></returns>
+        private Color ApproximateColor(Color[,] aprxMatrix)
+        {
+            try
+            {
+                List<Color> colorList = new List<Color>();
+
+                int dim0Length = aprxMatrix.GetLength(0);
+                int dim1Length = aprxMatrix.GetLength(1);
+                for (int i = 0; i < dim0Length ; i++)
+                {
+                    for (int j = 0; j < dim1Length; j++)
+                    {
+                        colorList.Add(aprxMatrix[i, j]);
+                    }
+                }
+
+                var result = colorList.GroupBy(c => c).Select(g => new { color = g.Key, count = g.Count() }).OrderByDescending(x => x.count);
+                return result.FirstOrDefault().color;
+            }
+            catch (RubikException ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return Color.Black;
+        }
+
     }
 }
