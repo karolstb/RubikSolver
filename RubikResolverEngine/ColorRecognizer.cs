@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.IO;
+using System.Collections;
 
 //red    255 0   0
 //blue   0   0   255
@@ -28,6 +29,7 @@ namespace RubikResolverEngine
         Bitmap _bitmap;
         int _colorRecognizerOffsetSign = 60;    //margines błędu w przypadku składowej RGB znaczącej (np.: R dla Red)
         int _colorRecognizerOffsetNotSign = 90; //margines błędu dla składowych nieznaczących
+        int _blackEdge = 2;                      //szerokosc krawedzi pomiedzy koorami
 
         /// <summary>
         /// konstruktor
@@ -201,8 +203,9 @@ namespace RubikResolverEngine
                 if (clr.R > 200 && clr.G > 200 && clr.B < 150)
                     return Color.Yellow;
                 */
-                    
+
                 //WERSKA II
+                /*
                 //red
                 if (Color.Red.R - clr.R < _colorRecognizerOffsetSign
                     && clr.G <= _colorRecognizerOffsetNotSign && clr.B <= _colorRecognizerOffsetNotSign)
@@ -235,19 +238,52 @@ namespace RubikResolverEngine
                     && Color.Yellow.G - clr.G < _colorRecognizerOffsetSign
                     && clr.B <= _colorRecognizerOffsetNotSign)
                     return Color.Yellow;
+                */
 
-                
-                
+
                 //foreach (Color color in rubikColors)
                 //{
-                    //inna metoda (nie działa)
-                    //if (Math.Abs(clr.R - color.R) < _colorRecognizerOffset 
-                    //    && Math.Abs(clr.G - color.G) < _colorRecognizerOffset 
-                    //    && Math.Abs(clr.B - color.B)<_colorRecognizerOffset)
-                    //{
-                    //    return color;
-                    //}
+                //inna metoda (nie działa)
+                //if (Math.Abs(clr.R - color.R) < _colorRecognizerOffset 
+                //    && Math.Abs(clr.G - color.G) < _colorRecognizerOffset 
+                //    && Math.Abs(clr.B - color.B)<_colorRecognizerOffset)
+                //{
+                //    return color;
                 //}
+                //}
+
+                //WERSJA III
+                int redDif, blueDif, greenDif, yellowDif, orangeDif, whiteDif, blackDif;
+
+                redDif = Math.Abs(Color.Red.R - clr.R) + Math.Abs(Color.Red.G - clr.G) + Math.Abs(Color.Red.B - clr.B);
+                blueDif = Math.Abs(Color.Blue.R - clr.R) + Math.Abs(Color.Blue.G - clr.G) + Math.Abs(Color.Blue.B - clr.B);
+                greenDif = Math.Abs(Color.Green.R - clr.R) + Math.Abs(Color.Green.G - clr.G) + Math.Abs(Color.Green.B - clr.B);
+                yellowDif = Math.Abs(Color.Yellow.R - clr.R) + Math.Abs(Color.Yellow.G - clr.G) + Math.Abs(Color.Yellow.B - clr.B);
+                orangeDif = Math.Abs(Color.Orange.R - clr.R) + Math.Abs(Color.Orange.G - clr.G) + Math.Abs(Color.Orange.B - clr.B);
+                whiteDif = Math.Abs(Color.White.R - clr.R) + Math.Abs(Color.White.G - clr.G) + Math.Abs(Color.White.B - clr.B);
+                blackDif = Math.Abs(Color.Black.R - clr.R) + Math.Abs(Color.Black.G - clr.G) + Math.Abs(Color.Black.B - clr.B);
+
+                Hashtable ht = new Hashtable();
+                ht.Add("red", redDif);
+                ht.Add("blue", blueDif);
+                ht.Add("green", greenDif);
+                ht.Add("yellow", yellowDif);
+                ht.Add("orange", orangeDif);
+                ht.Add("white", whiteDif);
+                ht.Add("black", blackDif);
+
+                var difList = ht.Cast<DictionaryEntry>().OrderBy(e => e.Value).ToList();
+                var minDif = difList.FirstOrDefault();
+
+                if (minDif.Key.ToString() == "red") return Color.Red;
+                if (minDif.Key.ToString() == "blue") return Color.Blue;
+                if (minDif.Key.ToString() == "green") return Color.Green;
+                if (minDif.Key.ToString() == "yellow") return Color.Yellow;
+                if (minDif.Key.ToString() == "orange") return Color.Orange;
+                if (minDif.Key.ToString() == "white") return Color.White;
+                else return Color.Black;
+
+                //if (minDif.Key.ToString() == "red") return Color.Red;
 
                 //jak nie dopasowało do żadnego koloru to zwróć czarny
                 return Color.Black;
@@ -428,8 +464,8 @@ namespace RubikResolverEngine
                         //pobiera po prostu jedną próbkę i na podstawie jej wyznacza kolor kwadratu
                         //value[i, j] = matrix[x + halfSquare + i * qSize, y + halfSquare + j * qSize];
                         //sprawdź kolory na około i czego jest więcej to zapisz
-                        int centerX = x + halfSquare + i * qSize;
-                        int centerY = y + halfSquare + j * qSize;
+                        int centerX = x + halfSquare + i * qSize + i * _blackEdge;
+                        int centerY = y + halfSquare + j * qSize + j * _blackEdge;
                         Color[,] tmpClrTab = new Color[3, 3];
                         tmpClrTab[0, 0] = matrix[centerX - 1, centerY - 1];
                         tmpClrTab[0, 1] = matrix[centerX - 1, centerY];
