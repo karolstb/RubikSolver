@@ -25,11 +25,11 @@ namespace RubikResolverEngine
         int probeYsize;
 
         //meta ustawienia 
-        int _probeSize = 30;//20;    //na ile kwadratów chcę podzielić krótszy bok obrazka
+        int _probeSize = 30;//30;//20;    //na ile kwadratów chcę podzielić krótszy bok obrazka
         Bitmap _bitmap;
         int _colorRecognizerOffsetSign = 60;    //margines błędu w przypadku składowej RGB znaczącej (np.: R dla Red)
         int _colorRecognizerOffsetNotSign = 90; //margines błędu dla składowych nieznaczących
-        int _blackEdge = 2;                      //szerokosc krawedzi pomiedzy koorami
+        int _blackEdge = 0;                      //szerokosc krawedzi pomiedzy koorami
 
         /// <summary>
         /// konstruktor
@@ -96,7 +96,7 @@ namespace RubikResolverEngine
                 {
                     for (int j = 0; j < probeXsize; j++)
                     {
-                        File.AppendAllText("matrix2.txt", matrix[i, j].ToString()+"  ");
+                        File.AppendAllText("matrix2.txt", " (" + i + ", " + j + ") " + matrix[i, j].ToString() + "  ");
                     }
 
                     File.AppendAllText("matrix2.txt", Environment.NewLine);
@@ -259,7 +259,7 @@ namespace RubikResolverEngine
                 blueDif = Math.Abs(Color.Blue.R - clr.R) + Math.Abs(Color.Blue.G - clr.G) + Math.Abs(Color.Blue.B - clr.B);
                 greenDif = Math.Abs(Color.Green.R - clr.R) + Math.Abs(Color.Green.G - clr.G) + Math.Abs(Color.Green.B - clr.B);
                 yellowDif = Math.Abs(Color.Yellow.R - clr.R) + Math.Abs(Color.Yellow.G - clr.G) + Math.Abs(Color.Yellow.B - clr.B);
-                orangeDif = Math.Abs(Color.Orange.R - clr.R) + Math.Abs(Color.Orange.G - clr.G) + Math.Abs(Color.Orange.B - clr.B);
+                orangeDif = Math.Abs(Color.DarkOrange.R - clr.R) + Math.Abs(Color.DarkOrange.G - clr.G) + Math.Abs(Color.DarkOrange.B - clr.B);
                 whiteDif = Math.Abs(Color.White.R - clr.R) + Math.Abs(Color.White.G - clr.G) + Math.Abs(Color.White.B - clr.B);
                 blackDif = Math.Abs(Color.Black.R - clr.R) + Math.Abs(Color.Black.G - clr.G) + Math.Abs(Color.Black.B - clr.B);
 
@@ -455,6 +455,9 @@ namespace RubikResolverEngine
                 //połowa boku kwadracika - do obliczeń jaki kolor
                 int halfSquare = qSize / 2;
 
+                //test
+                File.WriteAllText("namiary.txt", "");
+
                 //sprawdzaj kolory w kwadracie 3x3
                 for (int i = 0; i < 3; i++)
                 {
@@ -477,6 +480,9 @@ namespace RubikResolverEngine
                         tmpClrTab[2, 1] = matrix[centerX + 1, centerY];
                         tmpClrTab[2, 2] = matrix[centerX + 1, centerY + 1];
                         value[i, j] = ApproximateColor(tmpClrTab);
+
+                        //test
+                        File.AppendAllText("namiary.txt", "i: " + i + "  j:  " + j + " (" + centerX + ", " + centerY + ")" + Environment.NewLine);
                     }
                 }
 

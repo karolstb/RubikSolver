@@ -55,6 +55,36 @@ namespace RubikResolverEngine
         }
 
         /// <summary>
+        /// rysuje tylko jedną kratkę o podanych wymiarach
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="size"></param>
+        //public void DrawFace(Graphics g, int x, int y, int size)
+        //{
+        //    try
+        //    {
+        //        Rectangle r;
+        //        int rectSize = size / 3;
+                
+        //        r = new Rectangle(y * rectSize, x * rectSize, rectSize, rectSize);
+        //        SolidBrush brush = new SolidBrush(colors[x, y]);        //kolor
+        //        g.FillRectangle(brush, r);
+        //        Pen pen = new Pen(Color.Black, 1);                      //czarne obramowanie
+        //        g.DrawRectangle(pen, r);
+        //    }
+        //    catch (RubikException ex)
+        //    {
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+        //}
+
+        /// <summary>
         /// ustawia kolor na wybranej pozycji
         /// </summary>
         /// <param name="row"></param>

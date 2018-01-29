@@ -16,6 +16,9 @@ namespace RubikResolverWinForms
     {
         //private List<Surface> _surfList = null;
         private Surface[] _surfList = null;
+        int _XcontextMenu, _YcontextMenu;
+        int _faceNoContextMenu;
+        PictureBox _pictureBoxContexyMenu;
 
         public PhotoLoader()
         {
@@ -266,6 +269,136 @@ namespace RubikResolverWinForms
 
             }
         }
-       
+
+        #region menu kontekstowe
+        /// <summary>
+        /// pokaż menu kontekstowe
+        /// </summary>
+        /// <param name="faceNo"></param>
+        /// <param name="pictureBox"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        private void ShowContextMenu(int faceNo, PictureBox pictureBox, int x, int y)
+        {
+            _XcontextMenu = x;
+            _YcontextMenu = y;
+            _faceNoContextMenu = faceNo;
+            _pictureBoxContexyMenu = pictureBox;
+            ColorsContextMenu.Show(pictureBox, x, y);
+        }
+
+        /// <summary>
+        /// kliknięcie na picture box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Face1PictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                PictureBox pictureBox = (PictureBox)sender;
+                ShowContextMenu(1, pictureBox, e.X, e.Y);
+            }
+        }
+
+        private void Face2PictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                PictureBox pictureBox = (PictureBox)sender;
+                ShowContextMenu(2, pictureBox, e.X, e.Y);
+            }
+        }
+
+        private void Face3PictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                PictureBox pictureBox = (PictureBox)sender;
+                ShowContextMenu(3, pictureBox, e.X, e.Y);
+            }
+        }
+
+        private void Face4PictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                PictureBox pictureBox = (PictureBox)sender;
+                //ColorsContextMenu.Show(e.X, e.Y);
+                ShowContextMenu(4, pictureBox, e.X, e.Y);
+            }
+        }
+
+        private void Face5PictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                PictureBox pictureBox = (PictureBox)sender;
+                ShowContextMenu(5, pictureBox, e.X, e.Y);
+            }
+        }
+        
+        private void Face6PictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                PictureBox pictureBox = (PictureBox)sender;
+                ShowContextMenu(6, pictureBox, e.X, e.Y);
+            }
+        }
+
+        private void blueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DrawOneColor(Color.Blue);
+        }
+
+        private void greenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DrawOneColor(Color.Green);
+        }
+
+        private void yellowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DrawOneColor(Color.Yellow);
+        }
+
+        private void orangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DrawOneColor(Color.Orange);
+        }
+
+        private void whiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DrawOneColor(Color.White);
+        }
+
+        private void redToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DrawOneColor(Color.Red);
+        }
+
+        /// <summary>
+        /// pokoloruj jeden mały kwadracik na wybrany kolor
+        /// </summary>
+        /// <param name="color"></param>
+        private void DrawOneColor(Color color)
+        {
+            try
+            {
+                int y = _XcontextMenu / (_pictureBoxContexyMenu.Width / 3);
+                int x = _YcontextMenu / (_pictureBoxContexyMenu.Height / 3);
+
+                if (_surfList[_faceNoContextMenu -1] == null)
+                    _surfList[_faceNoContextMenu -1] = new Surface();
+
+                _surfList[_faceNoContextMenu - 1].SetColor(x, y, color);
+                _surfList[_faceNoContextMenu - 1].DrawFace(_pictureBoxContexyMenu.CreateGraphics(), _pictureBoxContexyMenu.Width);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        #endregion
     }
 }
