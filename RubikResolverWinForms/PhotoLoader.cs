@@ -27,6 +27,24 @@ namespace RubikResolverWinForms
             _surfList = new Surface[6];
         }
 
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (_surfList[0] != null)
+                DrawFace(_surfList[0], 1);
+            if (_surfList[1] != null)
+                DrawFace(_surfList[1], 2);
+            if (_surfList[2] != null)
+                DrawFace(_surfList[2], 3);
+            if (_surfList[3] != null)
+                DrawFace(_surfList[3], 4);
+            if (_surfList[4] != null)
+                DrawFace(_surfList[4], 5);
+            if (_surfList[5] != null)
+                DrawFace(_surfList[5], 6);
+
+            base.OnPaint(e);
+        }
+
         #region control events
         /// <summary>
         /// załaduj 1 zdjęcie 
@@ -121,6 +139,7 @@ namespace RubikResolverWinForms
                 if (faceNo == 1)
                 {
                     surface.DrawFace(Face1PictureBox.CreateGraphics(), Face1PictureBox.Width);
+                    //Face1PictureBox.Invalidate();
                     //DrawFace(surface, Face1PictureBox);
                 }
                 else if (faceNo == 2)
@@ -376,7 +395,7 @@ namespace RubikResolverWinForms
         {
             DrawOneColor(Color.Red);
         }
-
+        
         /// <summary>
         /// pokoloruj jeden mały kwadracik na wybrany kolor
         /// </summary>
@@ -397,6 +416,47 @@ namespace RubikResolverWinForms
             catch (Exception ex)
             {
 
+            }
+        }
+        #endregion
+
+        #region repaint picture boxes
+        private void Face2PictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            if (_surfList[1] != null)
+                DrawFace(_surfList[1], 2);
+        }
+
+        private void Face3PictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            if (_surfList[2] != null)
+                DrawFace(_surfList[2], 3);
+        }
+
+        private void Face4PictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            if (_surfList[3] != null)
+                DrawFace(_surfList[3], 4);
+        }
+
+        private void Face5PictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            if (_surfList[4] != null)
+                DrawFace(_surfList[4], 5);
+        }
+
+        private void Face6PictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            if (_surfList[5] != null)
+                DrawFace(_surfList[5], 6);
+        }
+
+        private void Face1PictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            if (_surfList[0] != null)
+            {
+                DrawFace(_surfList[0], 1);
+                //Face1PictureBox.Invalidate();
             }
         }
         #endregion

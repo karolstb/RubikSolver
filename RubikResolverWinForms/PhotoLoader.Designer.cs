@@ -81,7 +81,7 @@
             this.orangeToolStripMenuItem,
             this.whiteToolStripMenuItem});
             this.ColorsContextMenu.Name = "ColorsContextMenu";
-            this.ColorsContextMenu.Size = new System.Drawing.Size(153, 158);
+            this.ColorsContextMenu.Size = new System.Drawing.Size(114, 136);
             // 
             // redToolStripMenuItem
             // 
@@ -140,6 +140,7 @@
             this.Face3PictureBox.Size = new System.Drawing.Size(70, 70);
             this.Face3PictureBox.TabIndex = 11;
             this.Face3PictureBox.TabStop = false;
+            this.Face3PictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.Face3PictureBox_Paint);
             this.Face3PictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Face3PictureBox_MouseClick);
             // 
             // Face2PictureBox
@@ -151,6 +152,7 @@
             this.Face2PictureBox.Size = new System.Drawing.Size(70, 70);
             this.Face2PictureBox.TabIndex = 10;
             this.Face2PictureBox.TabStop = false;
+            this.Face2PictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.Face2PictureBox_Paint);
             this.Face2PictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Face2PictureBox_MouseClick);
             // 
             // Face4PictureBox
@@ -162,6 +164,7 @@
             this.Face4PictureBox.Size = new System.Drawing.Size(70, 70);
             this.Face4PictureBox.TabIndex = 9;
             this.Face4PictureBox.TabStop = false;
+            this.Face4PictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.Face4PictureBox_Paint);
             this.Face4PictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Face4PictureBox_MouseClick);
             // 
             // Face5PictureBox
@@ -173,6 +176,7 @@
             this.Face5PictureBox.Size = new System.Drawing.Size(70, 70);
             this.Face5PictureBox.TabIndex = 8;
             this.Face5PictureBox.TabStop = false;
+            this.Face5PictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.Face5PictureBox_Paint);
             this.Face5PictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Face5PictureBox_MouseClick);
             // 
             // Face6PictureBox
@@ -184,6 +188,7 @@
             this.Face6PictureBox.Size = new System.Drawing.Size(70, 70);
             this.Face6PictureBox.TabIndex = 7;
             this.Face6PictureBox.TabStop = false;
+            this.Face6PictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.Face6PictureBox_Paint);
             this.Face6PictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Face6PictureBox_MouseClick);
             // 
             // Face1PictureBox
@@ -195,6 +200,7 @@
             this.Face1PictureBox.Size = new System.Drawing.Size(70, 70);
             this.Face1PictureBox.TabIndex = 6;
             this.Face1PictureBox.TabStop = false;
+            this.Face1PictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.Face1PictureBox_Paint);
             this.Face1PictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Face1PictureBox_MouseClick);
             // 
             // Image6Btn

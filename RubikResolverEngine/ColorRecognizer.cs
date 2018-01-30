@@ -256,7 +256,7 @@ namespace RubikResolverEngine
                 int redDif, blueDif, greenDif, yellowDif, orangeDif, whiteDif, blackDif;
 
                 redDif = Math.Abs(Color.Red.R - clr.R) + Math.Abs(Color.Red.G - clr.G) + Math.Abs(Color.Red.B - clr.B);
-                blueDif = Math.Abs(Color.Blue.R - clr.R) + Math.Abs(Color.Blue.G - clr.G) + Math.Abs(Color.Blue.B - clr.B);
+                blueDif = Math.Abs(Color.DarkBlue.R - clr.R) + Math.Abs(Color.DarkBlue.G - clr.G) + Math.Abs(Color.DarkBlue.B - clr.B);
                 greenDif = Math.Abs(Color.Green.R - clr.R) + Math.Abs(Color.Green.G - clr.G) + Math.Abs(Color.Green.B - clr.B);
                 yellowDif = Math.Abs(Color.Yellow.R - clr.R) + Math.Abs(Color.Yellow.G - clr.G) + Math.Abs(Color.Yellow.B - clr.B);
                 orangeDif = Math.Abs(Color.DarkOrange.R - clr.R) + Math.Abs(Color.DarkOrange.G - clr.G) + Math.Abs(Color.DarkOrange.B - clr.B);
@@ -424,6 +424,36 @@ namespace RubikResolverEngine
         }
 
         /// <summary>
+        /// zlicz ile jest innych kolorów niż czarny w wierszu
+        /// </summary>
+        /// <param name="row"></param>
+        /// <returns></returns>
+        private int CountColorsOtherThenBlackInRow(int row)
+        {
+            try
+            {
+                int count = 0;
+                for(int i = 0; i < probeXsize; i++)
+                {
+                    if (matrix[row, i] != Color.Black)
+                        count++;
+                }
+
+                return count;
+            }
+            catch (RubikException ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return 0;
+        }
+
+        /// <summary>
         /// rozpoznaje już konkretne kolory na kostce
         /// </summary>
         /// <param name="qSize"></param>
@@ -436,18 +466,29 @@ namespace RubikResolverEngine
             {
                 Color[,] value = new Color[3, 3];
                 int x = 0, y = 0;
-                
+
                 //znajdź lewy górny róg kostki
+                bool firstRow = true;                   //zmienna pomocnicza, żeby ominąć pierwszy wiersz w celu korekty (zdjęcia nie są idealne)
                 for (int i = 0; i < probeYsize; i++)     
                 {
                     for (int j = 0; j < probeXsize; j++)
                     {
                         if (matrix[i, j] != Color.Black)
+                            //&& CountColorsOtherThenBlackInRow(i) > qSize)   //dodatkowy warunek, żeby wykluczyć "nierówności" na zdjęciu (jak jakiś kolor wystaje pojedynczo poza kostkę)
                         {
-                            x = i;
-                            y = j;
-                            i = probeYsize + 1;  //żeby wyjść z tej pętli
-                            break;
+                            if (firstRow)
+                            {
+                                firstRow = false;
+                                i++;
+                                break;
+                            }
+                            else
+                            {
+                                x = i;
+                                y = j;
+                                i = probeYsize + 1;  //żeby wyjść z tej pętli
+                                break;
+                            }
                         }
                     }
                 }
