@@ -138,5 +138,17 @@ namespace RubikResolverWinForms
         {
             SaveAsToolStripMenuItem_Click(sender, e);
         }
+
+        /// <summary>
+        /// otwiera okno do rozwiązywania kostki
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void resolveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Resolver resolver = new Resolver();
+            resolver.MdiParent = this;
+            resolver.Show();
+        }
     }
 }

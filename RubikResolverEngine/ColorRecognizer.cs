@@ -45,14 +45,14 @@ namespace RubikResolverEngine
         /// </summary>
         /// <param name="bitmap"></param>
         /// <returns></returns>
-        public Surface Recognize()// Bitmap _bitmap)
+        public Surface Recognize(int orderNumber)// Bitmap _bitmap)
         {
             try
             {
                 if (_bitmap == null)
                     throw new RubikException("Brak zainicjalizowanej bitmapy. Recognize");
 
-                Surface surface = new Surface();
+                Surface surface = new Surface(orderNumber);
 
                 int width = _bitmap.Width;
                 int height = _bitmap.Height;

@@ -1,0 +1,6 @@
+green;white;blue;green;white;blue;green;white;blue;
+orange;orange;orange;orange;orange;orange;orange;orange;orange;
+yellow;white;white;yellow;green;white;yellow;green;white;
+red;red;red;red;red;red;red;red;orange;
+blue;yellow;green;blue;yellow;green;blue;yellow;green;
+white;blue;yellow;white;blue;yellow;white;blue;yellow;

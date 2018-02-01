@@ -68,6 +68,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resolver.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Resolver.Designer.cs">
+      <DependentUpon>Resolver.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="parent.resx">
       <DependentUpon>parent.cs</DependentUpon>
     </EmbeddedResource>
@@ -84,6 +90,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Resolver.resx">
+      <DependentUpon>Resolver.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

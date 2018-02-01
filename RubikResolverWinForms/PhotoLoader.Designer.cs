@@ -32,12 +32,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.ColorsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.redToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.blueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.greenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.yellowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.orangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.whiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Face3PictureBox = new System.Windows.Forms.PictureBox();
             this.Face2PictureBox = new System.Windows.Forms.PictureBox();
             this.Face4PictureBox = new System.Windows.Forms.PictureBox();
@@ -50,7 +44,14 @@
             this.Image4Btn = new System.Windows.Forms.Button();
             this.Image5Btn = new System.Windows.Forms.Button();
             this.Image1Btn = new System.Windows.Forms.Button();
+            this.redToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.greenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.yellowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.orangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.whiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.ResolveBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.ColorsContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Face3PictureBox)).BeginInit();
@@ -82,54 +83,6 @@
             this.whiteToolStripMenuItem});
             this.ColorsContextMenu.Name = "ColorsContextMenu";
             this.ColorsContextMenu.Size = new System.Drawing.Size(114, 136);
-            // 
-            // redToolStripMenuItem
-            // 
-            this.redToolStripMenuItem.Image = global::RubikResolverWinForms.Properties.Resources.red;
-            this.redToolStripMenuItem.Name = "redToolStripMenuItem";
-            this.redToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.redToolStripMenuItem.Text = "Red";
-            this.redToolStripMenuItem.Click += new System.EventHandler(this.redToolStripMenuItem_Click);
-            // 
-            // blueToolStripMenuItem
-            // 
-            this.blueToolStripMenuItem.Image = global::RubikResolverWinForms.Properties.Resources.blue;
-            this.blueToolStripMenuItem.Name = "blueToolStripMenuItem";
-            this.blueToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.blueToolStripMenuItem.Text = "Blue";
-            this.blueToolStripMenuItem.Click += new System.EventHandler(this.blueToolStripMenuItem_Click);
-            // 
-            // greenToolStripMenuItem
-            // 
-            this.greenToolStripMenuItem.Image = global::RubikResolverWinForms.Properties.Resources.green;
-            this.greenToolStripMenuItem.Name = "greenToolStripMenuItem";
-            this.greenToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.greenToolStripMenuItem.Text = "Green";
-            this.greenToolStripMenuItem.Click += new System.EventHandler(this.greenToolStripMenuItem_Click);
-            // 
-            // yellowToolStripMenuItem
-            // 
-            this.yellowToolStripMenuItem.Image = global::RubikResolverWinForms.Properties.Resources.yellow;
-            this.yellowToolStripMenuItem.Name = "yellowToolStripMenuItem";
-            this.yellowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.yellowToolStripMenuItem.Text = "Yellow";
-            this.yellowToolStripMenuItem.Click += new System.EventHandler(this.yellowToolStripMenuItem_Click);
-            // 
-            // orangeToolStripMenuItem
-            // 
-            this.orangeToolStripMenuItem.Image = global::RubikResolverWinForms.Properties.Resources.orange;
-            this.orangeToolStripMenuItem.Name = "orangeToolStripMenuItem";
-            this.orangeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.orangeToolStripMenuItem.Text = "Orange";
-            this.orangeToolStripMenuItem.Click += new System.EventHandler(this.orangeToolStripMenuItem_Click);
-            // 
-            // whiteToolStripMenuItem
-            // 
-            this.whiteToolStripMenuItem.Image = global::RubikResolverWinForms.Properties.Resources.white;
-            this.whiteToolStripMenuItem.Name = "whiteToolStripMenuItem";
-            this.whiteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.whiteToolStripMenuItem.Text = "White";
-            this.whiteToolStripMenuItem.Click += new System.EventHandler(this.whiteToolStripMenuItem_Click);
             // 
             // Face3PictureBox
             // 
@@ -269,11 +222,70 @@
             this.Image1Btn.UseVisualStyleBackColor = true;
             this.Image1Btn.Click += new System.EventHandler(this.Image1Btn_Click);
             // 
+            // redToolStripMenuItem
+            // 
+            this.redToolStripMenuItem.Image = global::RubikResolverWinForms.Properties.Resources.red;
+            this.redToolStripMenuItem.Name = "redToolStripMenuItem";
+            this.redToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.redToolStripMenuItem.Text = "Red";
+            this.redToolStripMenuItem.Click += new System.EventHandler(this.redToolStripMenuItem_Click);
+            // 
+            // blueToolStripMenuItem
+            // 
+            this.blueToolStripMenuItem.Image = global::RubikResolverWinForms.Properties.Resources.blue;
+            this.blueToolStripMenuItem.Name = "blueToolStripMenuItem";
+            this.blueToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.blueToolStripMenuItem.Text = "Blue";
+            this.blueToolStripMenuItem.Click += new System.EventHandler(this.blueToolStripMenuItem_Click);
+            // 
+            // greenToolStripMenuItem
+            // 
+            this.greenToolStripMenuItem.Image = global::RubikResolverWinForms.Properties.Resources.green;
+            this.greenToolStripMenuItem.Name = "greenToolStripMenuItem";
+            this.greenToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.greenToolStripMenuItem.Text = "Green";
+            this.greenToolStripMenuItem.Click += new System.EventHandler(this.greenToolStripMenuItem_Click);
+            // 
+            // yellowToolStripMenuItem
+            // 
+            this.yellowToolStripMenuItem.Image = global::RubikResolverWinForms.Properties.Resources.yellow;
+            this.yellowToolStripMenuItem.Name = "yellowToolStripMenuItem";
+            this.yellowToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.yellowToolStripMenuItem.Text = "Yellow";
+            this.yellowToolStripMenuItem.Click += new System.EventHandler(this.yellowToolStripMenuItem_Click);
+            // 
+            // orangeToolStripMenuItem
+            // 
+            this.orangeToolStripMenuItem.Image = global::RubikResolverWinForms.Properties.Resources.orange;
+            this.orangeToolStripMenuItem.Name = "orangeToolStripMenuItem";
+            this.orangeToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.orangeToolStripMenuItem.Text = "Orange";
+            this.orangeToolStripMenuItem.Click += new System.EventHandler(this.orangeToolStripMenuItem_Click);
+            // 
+            // whiteToolStripMenuItem
+            // 
+            this.whiteToolStripMenuItem.Image = global::RubikResolverWinForms.Properties.Resources.white;
+            this.whiteToolStripMenuItem.Name = "whiteToolStripMenuItem";
+            this.whiteToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.whiteToolStripMenuItem.Text = "White";
+            this.whiteToolStripMenuItem.Click += new System.EventHandler(this.whiteToolStripMenuItem_Click);
+            // 
+            // ResolveBtn
+            // 
+            this.ResolveBtn.Location = new System.Drawing.Point(504, 415);
+            this.ResolveBtn.Name = "ResolveBtn";
+            this.ResolveBtn.Size = new System.Drawing.Size(75, 23);
+            this.ResolveBtn.TabIndex = 12;
+            this.ResolveBtn.Text = "Rozwiąż";
+            this.ResolveBtn.UseVisualStyleBackColor = true;
+            this.ResolveBtn.Click += new System.EventHandler(this.ResolveBtn_Click);
+            // 
             // PhotoLoader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(591, 450);
+            this.Controls.Add(this.ResolveBtn);
             this.Controls.Add(this.Face3PictureBox);
             this.Controls.Add(this.Face2PictureBox);
             this.Controls.Add(this.Face4PictureBox);
@@ -325,5 +337,6 @@
         private System.Windows.Forms.ToolStripMenuItem yellowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem orangeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem whiteToolStripMenuItem;
+        private System.Windows.Forms.Button ResolveBtn;
     }
 }

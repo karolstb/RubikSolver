@@ -97,7 +97,7 @@ namespace RubikResolverWinForms
                 Bitmap img = (Bitmap)Image.FromFile(dialog.FileName, true);
                 //img.GetPixel(100, 100);
                 var colorRecognizer = new ColorRecognizer(img);
-                var surface = colorRecognizer.Recognize();
+                var surface = colorRecognizer.Recognize(faceNo);
                 
                 //uruchom rysowanie
                 DrawFace(surface, faceNo);
@@ -132,7 +132,7 @@ namespace RubikResolverWinForms
                     throw new RubikException("DrawFace - podano nieprawidłowy argument faceNo: " + faceNo);
 
                 //wpisz do globalnej tablicy, żeby potem móc zapisać/wczytać rzopoznane ścianki kostki
-                var surfTmp = new Surface();
+                var surfTmp = new Surface(faceNo);
                 surfTmp.SetColors(surface.GetColors());
                 _surfList[faceNo - 1] = surfTmp;
 
@@ -190,7 +190,7 @@ namespace RubikResolverWinForms
                     {
                         var splited = line.Split(';');
 
-                        Surface surface = new Surface();
+                        Surface surface = new Surface(count);
                         for (int i = 0; i < 3; i++)
                         {
                             for (int j = 0; j < 3; j++)
@@ -408,7 +408,7 @@ namespace RubikResolverWinForms
                 int x = _YcontextMenu / (_pictureBoxContexyMenu.Height / 3);
 
                 if (_surfList[_faceNoContextMenu -1] == null)
-                    _surfList[_faceNoContextMenu -1] = new Surface();
+                    _surfList[_faceNoContextMenu -1] = new Surface(_faceNoContextMenu);
 
                 _surfList[_faceNoContextMenu - 1].SetColor(x, y, color);
                 _surfList[_faceNoContextMenu - 1].DrawFace(_pictureBoxContexyMenu.CreateGraphics(), _pictureBoxContexyMenu.Width);
@@ -451,6 +451,8 @@ namespace RubikResolverWinForms
                 DrawFace(_surfList[5], 6);
         }
 
+        
+
         private void Face1PictureBox_Paint(object sender, PaintEventArgs e)
         {
             if (_surfList[0] != null)
@@ -460,5 +462,24 @@ namespace RubikResolverWinForms
             }
         }
         #endregion
+
+        /// <summary>
+        /// zdarzenie do uruchomienia "rozwiązywacza kostki"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ResolveBtn_Click(object sender, EventArgs e)
+        {
+            Cube cube = new Cube();
+            cube.SetSurfaces(_surfList);
+
+            Resolver resolver = new Resolver();
+            resolver.Resolve(cube);
+            resolver.MdiParent = this.MdiParent;
+            resolver.Show();
+
+            //resolver.DrawCube();
+            resolver.Activate();
+        }
     }
 }

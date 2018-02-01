@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace RubikResolverEngine
 {
@@ -11,10 +12,171 @@ namespace RubikResolverEngine
     {
         //public Color MyProperty { get; set; }
         private Color[,] colors { get; set; }
+        int orderNumber;    //numer od 1 do 6 określa położenie surface na kostce
 
-        public Surface()
+        public Surface(int orderNumber)
         {
+            if (orderNumber < 1 || orderNumber > 6)
+                throw new RubikException("Nieprawidłowy parametr orderNumber w konstuktorze Surface (" + orderNumber + ")");
+
+            this.orderNumber = orderNumber;
             colors = new Color[3, 3];
+        }
+
+        /// <summary>
+        /// zwraca numer sąsiedniej ścianki według podanego parametru
+        /// </summary>
+        /// <param name="neighbour"></param>
+        /// <returns></returns>
+        public int GetNeighbourSurfaceOrderNumber(ENeighbourSurface neighbour)
+        {
+            switch (this.orderNumber)
+            {
+                case 1:
+                    {
+                        switch (neighbour)
+                        {
+                            case ENeighbourSurface.Down:
+                                {
+                                    return 3;
+                                }
+                            case ENeighbourSurface.Up:
+                                {
+                                    return 6;
+                                }
+                            case ENeighbourSurface.Left:
+                                {
+                                    return 2;
+                                }
+                            case ENeighbourSurface.Right:
+                                {
+                                    return 4;
+                                }
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        switch (neighbour)
+                        {
+                            case ENeighbourSurface.Down:
+                                {
+                                    return 5;
+                                }
+                            case ENeighbourSurface.Up:
+                                {
+                                    return 1;
+                                }
+                            case ENeighbourSurface.Left:
+                                {
+                                    return 6;
+                                }
+                            case ENeighbourSurface.Right:
+                                {
+                                    return 3;
+                                }
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        switch (neighbour)
+                        {
+                            case ENeighbourSurface.Down:
+                                {
+                                    return 5;
+                                }
+                            case ENeighbourSurface.Up:
+                                {
+                                    return 1;
+                                }
+                            case ENeighbourSurface.Left:
+                                {
+                                    return 2;
+                                }
+                            case ENeighbourSurface.Right:
+                                {
+                                    return 4;
+                                }
+                        }
+                        break;
+                    }
+                case 4:
+                    {
+                        switch (neighbour)
+                        {
+                            case ENeighbourSurface.Down:
+                                {
+                                    return 5;
+                                }
+                            case ENeighbourSurface.Up:
+                                {
+                                    return 1;
+                                }
+                            case ENeighbourSurface.Left:
+                                {
+                                    return 3;
+                                }
+                            case ENeighbourSurface.Right:
+                                {
+                                    return 6;
+                                }
+                        }
+                        break;
+                    }
+                case 5:
+                    {
+                        switch (neighbour)
+                        {
+                            case ENeighbourSurface.Down:
+                                {
+                                    return 6;
+                                }
+                            case ENeighbourSurface.Up:
+                                {
+                                    return 3;
+                                }
+                            case ENeighbourSurface.Left:
+                                {
+                                    return 2;
+                                }
+                            case ENeighbourSurface.Right:
+                                {
+                                    return 4;
+                                }
+                        }
+                        break;
+                    }
+                case 6:
+                    {
+                        switch (neighbour)
+                        {
+                            case ENeighbourSurface.Down:
+                                {
+                                    return 1;
+                                }
+                            case ENeighbourSurface.Up:
+                                {
+                                    return 5;
+                                }
+                            case ENeighbourSurface.Left:
+                                {
+                                    return 2;
+                                }
+                            case ENeighbourSurface.Right:
+                                {
+                                    return 4;
+                                }
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+
+            throw new RubikException("Błąd podczas pobierania numeru orderNumber dla sąsiedniej ścianki - GetNeighbourSurfaceOrderNumber");
         }
 
         /// <summary>
@@ -136,6 +298,220 @@ namespace RubikResolverEngine
     }
 
     /// <summary>
+    /// klasa reprezentuje kostkę
+    /// </summary>
+    public class Cube
+    {
+        private Surface[] surfaces { get; set; }
+
+        public Cube()
+        {
+            surfaces = new RubikResolverEngine.Surface[6];
+        }
+
+        /// <summary>
+        /// ustawia płaszczyzny dla tej kostki
+        /// </summary>
+        /// <param name="surfaces"></param>
+        public void SetSurfaces(Surface[] surfaces)
+        {
+            if (surfaces == null)
+                throw new RubikException("Tablica surface nie może być null - SetSurface");
+            if (surfaces.Length != 6)
+                throw new RubikException("Tablice surface musi mieć 6 elementów - SetSurface");
+
+            //todo: walidacja, że żaden z elementów nie jest null
+
+            this.surfaces = surfaces;
+        }
+
+        /// <summary>
+        /// zwraca całą listę płaższczyzn kostki
+        /// </summary>
+        /// <returns></returns>
+        public Surface[] GetSurfaces()
+        {
+            if (surfaces == null)
+                throw new RubikException("Tablica surface nie może być null - GetSurfaces");
+            if (surfaces.Length != 6)
+                throw new RubikException("Tablice surface musi mieć 6 elementów - GetSurfaces");
+
+            return surfaces;
+        }
+
+        /// <summary>
+        /// zwraca pojedynczą ściankę kostki
+        /// </summary>
+        /// <param name="orderNumber"></param>
+        /// <returns></returns>
+        public Surface GetSurface(int orderNumber)
+        {
+            if (orderNumber < 1 || orderNumber > 6)
+                throw new RubikException("Podano nieprawidłowy parametr w funkcji GetSurface (" + orderNumber + ")");
+            if (surfaces == null)
+                throw new RubikException("Tablica surface jest null ! - GetSurface");
+            //if (surfaces[orderNumber] == null)
+            //    throw new RubikException("Elemenet w tablicy surface na pozycji " + orderNumber + " jest null ! - GetSurface");
+
+            return surfaces[orderNumber - 1];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="move"></param>
+        /// <param name="clockwise"></param>
+        /// <returns></returns>
+        public Surface[] Move(EMove move, bool isClockwise)
+        {
+            //chyba nie pójdę tą drogą
+            return null;
+        }
+
+        /// <summary>
+        /// wykonuje ruch okrężny daną ścianką
+        /// </summary>
+        /// <param name="g">kontekst graficzny, gdzie ma być odrysowany ruch</param>
+        /// <param name="faceOrderNumter">numer ścianki</param>
+        /// <param name="isClockwise">czy ma być zgodnie z ruchem wskazówek zegara</param>
+        /// <returns></returns>
+        public Surface[] Move(Graphics g, int faceOrderNumber, bool isClockwise)
+        {
+            //todo:
+            try
+            {
+                //narysuj strzałkę jak kreścić ścianką
+                Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0), 8);
+                pen.StartCap = LineCap.ArrowAnchor;
+                pen.EndCap = LineCap.RoundAnchor;
+                g.DrawLine(pen, 10, 10, 20, 50);
+
+                //zaktualizuj dane o kostce
+                var surface = GetSurface(faceOrderNumber);
+                //todo: zrób coś ze surface i ją zaktulizuj
+                return surfaces;
+
+                ////using(SolidBrush brush=new SolidBrush(colors[i, j]))
+                ////{
+                //SolidBrush brush = new SolidBrush(colors[i, j]);        //kolor
+                //        g.FillRectangle(brush, r);
+                //        Pen pen = new Pen(Color.Black, 1);                      //czarne obramowanie
+                //        g.DrawRectangle(pen, r);
+                //        //}
+            }
+            catch (RubikException ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return surfaces;
+        }
+
+        /// <summary>
+        /// robi ruch
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="move"></param>
+        /// <returns></returns>
+        public Surface[] Move(Graphics g, Move move)
+        {
+            try
+            {
+                //narysuj strzałkę jak kreścić ścianką
+                PaintMove(g, move);
+
+                //zaktualizuj dane o kostce
+                var surface = GetSurface(move.faceNumber);
+                //todo: zrób coś ze surface i ją zaktulizuj
+                return surfaces;
+
+                ////using(SolidBrush brush=new SolidBrush(colors[i, j]))
+                ////{
+                //SolidBrush brush = new SolidBrush(colors[i, j]);        //kolor
+                //        g.FillRectangle(brush, r);
+                //        Pen pen = new Pen(Color.Black, 1);                      //czarne obramowanie
+                //        g.DrawRectangle(pen, r);
+                //        //}
+            }
+            catch (RubikException ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return surfaces;
+        }
+
+        /// <summary>
+        /// odrysowuje ruch - i tylko to, nie zmienia danych
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="move"></param>
+        public void PaintMove(Graphics g, Move move)
+        {
+            try
+            {
+                Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0), 6);
+
+                if (move.clockwise)
+                {
+                    pen.StartCap = LineCap.RoundAnchor;
+                    pen.EndCap = LineCap.ArrowAnchor;
+                }
+                else
+                {
+                    pen.StartCap = LineCap.ArrowAnchor;
+                    pen.EndCap = LineCap.RoundAnchor;
+                }
+
+                Rectangle rectangle = new Rectangle(5, 5, 60, 60);
+
+                //g.DrawLine(pen, 10, 10, 20, 50);
+                //if (move.clockwise)
+                    g.DrawArc(pen, rectangle, 270F, 315F);
+                //else
+                //    g.DrawArc(pen, rectangle, 45F, 315F);
+
+            }
+            catch (RubikException ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+    }
+
+    /// <summary>
+    /// klasa reprezentuje ruch jedną z sześciu płaszczyzn
+    /// </summary>
+    public class Move
+    {
+        public int faceNumber { get; private set; } //którą ścianę obracamy
+        public bool clockwise { get; private set; } //kręcimy zgodnie czy odwrotnie do ruchu wskazówek zegara
+
+        public Move()
+        {
+
+        }
+
+        public Move(int faceNumber, bool clockwise)
+        {
+            this.faceNumber = faceNumber;
+            this.clockwise = clockwise;
+        }
+    }
+
+    /// <summary>
     /// własna klasa na świadome wyjątki
     /// </summary>
     public class RubikException : Exception
@@ -144,5 +520,21 @@ namespace RubikResolverEngine
         {
 
         }
+    }
+
+    /// <summary>
+    /// rodzaej ruchów - raczej nie będzie używane
+    /// </summary>
+    public enum EMove
+    {
+        R,L,U,D,F,M,B
+    }
+
+    /// <summary>
+    /// określa sąsiedztwo dla danej ścianki
+    /// </summary>
+    public enum ENeighbourSurface
+    {
+        Up, Down, Left, Right
     }
 }
