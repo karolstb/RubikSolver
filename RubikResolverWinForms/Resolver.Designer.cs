@@ -56,6 +56,7 @@
             this.NextMoveBtn.TabIndex = 0;
             this.NextMoveBtn.Text = "dalej";
             this.NextMoveBtn.UseVisualStyleBackColor = true;
+            this.NextMoveBtn.Click += new System.EventHandler(this.NextMoveBtn_Click);
             // 
             // PrevMoveBtn
             // 
@@ -65,6 +66,7 @@
             this.PrevMoveBtn.TabIndex = 1;
             this.PrevMoveBtn.Text = "wstecz";
             this.PrevMoveBtn.UseVisualStyleBackColor = true;
+            this.PrevMoveBtn.Click += new System.EventHandler(this.PrevMoveBtn_Click);
             // 
             // Face1PictureBox
             // 
@@ -137,6 +139,7 @@
             this.CurrentMoveTxt.Name = "CurrentMoveTxt";
             this.CurrentMoveTxt.Size = new System.Drawing.Size(70, 20);
             this.CurrentMoveTxt.TabIndex = 13;
+            this.CurrentMoveTxt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // CountMoveTxt
             // 
@@ -144,6 +147,7 @@
             this.CountMoveTxt.Name = "CountMoveTxt";
             this.CountMoveTxt.Size = new System.Drawing.Size(70, 20);
             this.CountMoveTxt.TabIndex = 14;
+            this.CountMoveTxt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // CurrentMoveLbl
             // 

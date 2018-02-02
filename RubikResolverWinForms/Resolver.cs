@@ -14,6 +14,8 @@ namespace RubikResolverWinForms
     public partial class Resolver : Form
     {
         Cube _cube = null;
+        Move _currentMove = null;
+        List<Move> _moves = null;
 
         public Resolver()
         {
@@ -157,9 +159,13 @@ namespace RubikResolverWinForms
             //todo: rozwiązywanie...
 
             //test
-            List<Move> moves = new List<RubikResolverEngine.Move>();
-            moves.Add(new RubikResolverEngine.Move(4, false));
-            this._cube.Move(Face4PictureBox.CreateGraphics(), moves[0]);
+            _moves = new List<Move>();
+            _moves.Add(new Move(1, false));
+            _moves.Add(new Move(6, true));
+            _moves.Add(new Move(4, false));
+            _moves.Add(new Move(1, true));
+            _currentMove = _moves[0];
+            this._cube.Move(Face1PictureBox.CreateGraphics(), _currentMove);
             //koniec test
 
             //DrawCube();
@@ -198,10 +204,102 @@ namespace RubikResolverWinForms
                 DrawFace(_surfList[5], 6);
 
             //test
-            List<Move> moves = new List<RubikResolverEngine.Move>();
-            moves.Add(new RubikResolverEngine.Move(4, false));
-            this._cube.PaintMove(Face4PictureBox.CreateGraphics(), moves[0]);
+            //List<Move> moves = new List<RubikResolverEngine.Move>();
+            //moves.Add(new RubikResolverEngine.Move(1, false));
+            //this._cube.PaintMove(Face1PictureBox.CreateGraphics(), _currentMove);
             //koniec test
+
+            PictureBox tmpPictureBox = new PictureBox();
+
+            switch (_currentMove.faceNumber)
+            {
+                case 1:
+                    {
+                        tmpPictureBox = Face1PictureBox;
+                        break;
+                    }
+                case 2:
+                    {
+                        tmpPictureBox = Face2PictureBox;
+                        break;
+                    }
+                case 3:
+                    {
+                        tmpPictureBox = Face3PictureBox;
+                        break;
+                    }
+                case 4:
+                    {
+                        tmpPictureBox = Face4PictureBox;
+                        break;
+                    }
+                case 5:
+                    {
+                        tmpPictureBox = Face5PictureBox;
+                        break;
+                    }
+                case 6:
+                    {
+                        tmpPictureBox = Face6PictureBox;
+                        break;
+                    }
+            }
+
+            this._cube.PaintMove(tmpPictureBox.CreateGraphics(), _currentMove);
+            CountMoveTxt.Text = _moves.Count() + "";
+            CurrentMoveTxt.Text = (_moves.IndexOf(_currentMove) + 1) + "";
+        }
+
+        /// <summary>
+        /// pokaż kolejny ruch
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NextMoveBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int currentIndex = _moves.IndexOf(_currentMove);
+                if (_moves[currentIndex + 1] != null)
+                {
+                    _currentMove = _moves[currentIndex + 1];
+                    this.RaisePaintEvent(sender, null);
+                }
+            }
+            catch (RubikException ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// pokaż poprzedni ruch
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PrevMoveBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int currentIndex = _moves.IndexOf(_currentMove);
+                if (_moves[currentIndex - 1] != null)
+                {
+                    _currentMove = _moves[currentIndex - 1];
+                    this.RaisePaintEvent(sender, null);
+                }
+            }
+            catch (RubikException ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }
