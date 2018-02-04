@@ -356,60 +356,60 @@ namespace RubikResolverEngine
             return surfaces[orderNumber - 1];
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="move"></param>
-        /// <param name="clockwise"></param>
-        /// <returns></returns>
-        public Surface[] Move(EMove move, bool isClockwise)
-        {
-            //chyba nie pójdę tą drogą
-            return null;
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="move"></param>
+        ///// <param name="clockwise"></param>
+        ///// <returns></returns>
+        //public Surface[] Move(EMove move, bool isClockwise)
+        //{
+        //    //chyba nie pójdę tą drogą
+        //    return null;
+        //}
 
-        /// <summary>
-        /// wykonuje ruch okrężny daną ścianką
-        /// </summary>
-        /// <param name="g">kontekst graficzny, gdzie ma być odrysowany ruch</param>
-        /// <param name="faceOrderNumter">numer ścianki</param>
-        /// <param name="isClockwise">czy ma być zgodnie z ruchem wskazówek zegara</param>
-        /// <returns></returns>
-        public Surface[] Move(Graphics g, int faceOrderNumber, bool isClockwise)
-        {
-            //todo:
-            try
-            {
-                //narysuj strzałkę jak kreścić ścianką
-                Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0), 8);
-                pen.StartCap = LineCap.ArrowAnchor;
-                pen.EndCap = LineCap.RoundAnchor;
-                g.DrawLine(pen, 10, 10, 20, 50);
+        ///// <summary>
+        ///// wykonuje ruch okrężny daną ścianką
+        ///// </summary>
+        ///// <param name="g">kontekst graficzny, gdzie ma być odrysowany ruch</param>
+        ///// <param name="faceOrderNumter">numer ścianki</param>
+        ///// <param name="isClockwise">czy ma być zgodnie z ruchem wskazówek zegara</param>
+        ///// <returns></returns>
+        //public Surface[] Move(Graphics g, int faceOrderNumber, bool isClockwise)
+        //{
+        //    //todo:
+        //    try
+        //    {
+        //        //narysuj strzałkę jak kreścić ścianką
+        //        Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0), 8);
+        //        pen.StartCap = LineCap.ArrowAnchor;
+        //        pen.EndCap = LineCap.RoundAnchor;
+        //        g.DrawLine(pen, 10, 10, 20, 50);
 
-                //zaktualizuj dane o kostce
-                var surface = GetSurface(faceOrderNumber);
-                //todo: zrób coś ze surface i ją zaktulizuj
-                return surfaces;
+        //        //zaktualizuj dane o kostce
+        //        var surface = GetSurface(faceOrderNumber);
+        //        //todo: zrób coś ze surface i ją zaktulizuj
+        //        return surfaces;
 
-                ////using(SolidBrush brush=new SolidBrush(colors[i, j]))
-                ////{
-                //SolidBrush brush = new SolidBrush(colors[i, j]);        //kolor
-                //        g.FillRectangle(brush, r);
-                //        Pen pen = new Pen(Color.Black, 1);                      //czarne obramowanie
-                //        g.DrawRectangle(pen, r);
-                //        //}
-            }
-            catch (RubikException ex)
-            {
+        //        ////using(SolidBrush brush=new SolidBrush(colors[i, j]))
+        //        ////{
+        //        //SolidBrush brush = new SolidBrush(colors[i, j]);        //kolor
+        //        //        g.FillRectangle(brush, r);
+        //        //        Pen pen = new Pen(Color.Black, 1);                      //czarne obramowanie
+        //        //        g.DrawRectangle(pen, r);
+        //        //        //}
+        //    }
+        //    catch (RubikException ex)
+        //    {
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-            }
+        //    }
 
-            return surfaces;
-        }
+        //    return surfaces;
+        //}
 
         /// <summary>
         /// robi ruch
@@ -417,16 +417,50 @@ namespace RubikResolverEngine
         /// <param name="g"></param>
         /// <param name="move"></param>
         /// <returns></returns>
-        public Surface[] Move(Graphics g, Move move)
+        public Surface[] Move(Graphics g, Move move, bool isReverse)
         {
             try
             {
                 //narysuj strzałkę jak kreścić ścianką
-                PaintMove(g, move);
+                PaintMove(g, move, isReverse);
 
                 //zaktualizuj dane o kostce
-                var surface = GetSurface(move.faceNumber);
+                var sCenter = GetSurface(move.faceNumber);
                 //todo: zrób coś ze surface i ją zaktulizuj
+                var sUp = GetSurface(sCenter.GetNeighbourSurfaceOrderNumber(ENeighbourSurface.Up));
+                var sDown = GetSurface(sCenter.GetNeighbourSurfaceOrderNumber(ENeighbourSurface.Down));
+                var sLeft = GetSurface(sCenter.GetNeighbourSurfaceOrderNumber(ENeighbourSurface.Left));
+                var sRight = GetSurface(sCenter.GetNeighbourSurfaceOrderNumber(ENeighbourSurface.Right));
+
+                Color tmpColor;
+                //Surface tmpSurface;
+                //Color[,] tmpCenterColors = new Color[3, 3];
+
+                if ((!isReverse && move.clockwise) || (isReverse && !move.clockwise))
+                //if (move.clockwise)
+                {
+                    var tmpCenterColors = sCenter.GetColors();
+                    var tmpUpColors = sUp.GetColors();
+                    var tmpDownColors = sDown.GetColors();
+                    var tmpRightColors = sRight.GetColors();
+                    var tmpLeftColors = sLeft.GetColors();
+
+                    sCenter.SetColor(0, 0, tmpCenterColors[2, 0]);
+                    sCenter.SetColor(0, 1, tmpCenterColors[1, 0]);
+                    sCenter.SetColor(0, 2, tmpCenterColors[0, 0]);
+                    sCenter.SetColor(1, 0, tmpCenterColors[2, 1]);
+                    sCenter.SetColor(1, 2, tmpCenterColors[0, 1]);
+                    sCenter.SetColor(2, 0, tmpCenterColors[2, 2]);
+                    sCenter.SetColor(2, 1, tmpCenterColors[1, 2]);
+
+                    //todo: i tu jest problem bo nie mam info jaką krawedzią sąsiadują
+                    
+                }
+                else
+                {
+
+                }
+
                 return surfaces;
 
                 ////using(SolidBrush brush=new SolidBrush(colors[i, j]))
@@ -454,13 +488,15 @@ namespace RubikResolverEngine
         /// </summary>
         /// <param name="g"></param>
         /// <param name="move"></param>
-        public void PaintMove(Graphics g, Move move)
+        public void PaintMove(Graphics g, Move move, bool isReverse)
         {
             try
             {
                 Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0), 6);
 
-                if (move.clockwise)
+                if ((!isReverse && move.clockwise) || (isReverse && !move.clockwise))
+                //if ((!move.reverse && move.clockwise) || (move.reverse && !move.clockwise))
+                //if(move.clockwise)
                 {
                     pen.StartCap = LineCap.RoundAnchor;
                     pen.EndCap = LineCap.ArrowAnchor;
@@ -498,6 +534,7 @@ namespace RubikResolverEngine
     {
         public int faceNumber { get; private set; } //którą ścianę obracamy
         public bool clockwise { get; private set; } //kręcimy zgodnie czy odwrotnie do ruchu wskazówek zegara
+        //public bool reverse { get; private set; }
 
         public Move()
         {
@@ -508,7 +545,17 @@ namespace RubikResolverEngine
         {
             this.faceNumber = faceNumber;
             this.clockwise = clockwise;
+            //reverse = false;
         }
+
+        ///// <summary>
+        ///// ustaw czy ruch ma być wykonany normalnie czy odwrotnie
+        ///// </summary>
+        ///// <param name="reverse"></param>
+        //public void SetReverse(bool reverse)
+        //{
+        //    this.reverse = reverse;
+        //}
     }
 
     /// <summary>

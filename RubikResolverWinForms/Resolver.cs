@@ -16,6 +16,7 @@ namespace RubikResolverWinForms
         Cube _cube = null;
         Move _currentMove = null;
         List<Move> _moves = null;
+        bool _isReverse = false;    //czy wracamy z powrotem
 
         public Resolver()
         {
@@ -165,7 +166,7 @@ namespace RubikResolverWinForms
             _moves.Add(new Move(4, false));
             _moves.Add(new Move(1, true));
             _currentMove = _moves[0];
-            this._cube.Move(Face1PictureBox.CreateGraphics(), _currentMove);
+            this._cube.Move(Face1PictureBox.CreateGraphics(), _currentMove, _isReverse);
             //koniec test
 
             //DrawCube();
@@ -244,8 +245,8 @@ namespace RubikResolverWinForms
                         break;
                     }
             }
-
-            this._cube.PaintMove(tmpPictureBox.CreateGraphics(), _currentMove);
+            
+            this._cube.PaintMove(tmpPictureBox.CreateGraphics(), _currentMove, _isReverse);
             CountMoveTxt.Text = _moves.Count() + "";
             CurrentMoveTxt.Text = (_moves.IndexOf(_currentMove) + 1) + "";
         }
@@ -259,11 +260,19 @@ namespace RubikResolverWinForms
         {
             try
             {
-                int currentIndex = _moves.IndexOf(_currentMove);
-                if (_moves[currentIndex + 1] != null)
+                if (_isReverse)
                 {
-                    _currentMove = _moves[currentIndex + 1];
+                    _isReverse = false;
                     this.RaisePaintEvent(sender, null);
+                }
+                else
+                {
+                    int currentIndex = _moves.IndexOf(_currentMove);
+                    if (_moves[currentIndex + 1] != null)
+                    {
+                        _currentMove = _moves[currentIndex + 1];
+                        this.RaisePaintEvent(sender, null);
+                    }
                 }
             }
             catch (RubikException ex)
@@ -285,10 +294,20 @@ namespace RubikResolverWinForms
         {
             try
             {
-                int currentIndex = _moves.IndexOf(_currentMove);
-                if (_moves[currentIndex - 1] != null)
+                if (_isReverse)
                 {
-                    _currentMove = _moves[currentIndex - 1];
+                    //_currentMove.SetReverse(false);                     //zresetuj reverse na aktualnym ruchu (bo może być ustawione)
+                    int currentIndex = _moves.IndexOf(_currentMove);
+                    if (_moves[currentIndex - 1] != null)
+                    {
+                        _currentMove = _moves[currentIndex - 1];
+                        //_currentMove.SetReverse(true);
+                        this.RaisePaintEvent(sender, null);
+                    }
+                }
+                else
+                {
+                    _isReverse = true;
                     this.RaisePaintEvent(sender, null);
                 }
             }
