@@ -14,7 +14,8 @@ namespace RubikResolverWinForms
     public partial class Resolver : Form
     {
         Cube _cube = null;
-        Move _currentMove = null;
+        //Move _currentMove = null;
+        int _currentMoveId = -1;
         List<Move> _moves = null;
         bool _isReverse = false;    //czy wracamy z powrotem
 
@@ -134,7 +135,7 @@ namespace RubikResolverWinForms
             if (_cube.GetSurface(6) != null)
                 DrawFace(_cube.GetSurface(6), 6);
         }
-        
+
         private void Face1PictureBox_Paint(object sender, PaintEventArgs e)
         {
             if (_cube.GetSurface(1) != null)
@@ -161,12 +162,12 @@ namespace RubikResolverWinForms
 
             //test
             _moves = new List<Move>();
-            _moves.Add(new Move(1, false));
-            _moves.Add(new Move(6, true));
-            _moves.Add(new Move(4, false));
-            _moves.Add(new Move(1, true));
-            _currentMove = _moves[0];
-            this._cube.Move(Face1PictureBox.CreateGraphics(), _currentMove, _isReverse);
+            _moves.Add(new Move(4, true));
+            _moves.Add(new Move(2, true));
+            //_moves.Add(new Move(4, false));
+            //_moves.Add(new Move(1, true));
+            //_currentMove = null;// _moves[0];
+            //this._cube.Move(Face1PictureBox.CreateGraphics(), _currentMove, _isReverse);
             //koniec test
 
             //DrawCube();
@@ -179,7 +180,7 @@ namespace RubikResolverWinForms
         protected override void OnShown(EventArgs e)
         {
             //todo: pokaż kroki rozwiązania
-           
+
             base.OnShown(e);
         }
 
@@ -210,9 +211,39 @@ namespace RubikResolverWinForms
             //this._cube.PaintMove(Face1PictureBox.CreateGraphics(), _currentMove);
             //koniec test
 
+            int tmpMoveId = (_isReverse) ? _currentMoveId : _currentMoveId + 1;
+
+            PictureBox tmpPictureBox = GetCurrentPictureBox(tmpMoveId);
+            if (tmpPictureBox != null)
+            {
+                if (tmpMoveId >= 0 && tmpMoveId < _moves.Count())
+                    this._cube.PaintMove(tmpPictureBox.CreateGraphics(), _moves[tmpMoveId], _isReverse);
+            }
+
+            //Move tmpMove = null;
+            //if (_moves[_currentMoveId + 1] != null)
+            //    tmpMove = _moves[_currentMoveId + 1];
+            //this._cube.PaintMove(tmpPictureBox.CreateGraphics(), tmpMove, _isReverse);
+
+            CountMoveTxt.Text = _moves.Count() + "";
+            //CurrentMoveTxt.Text = (_moves.IndexOf(_currentMove) + 1) + "";
+            CurrentMoveTxt.Text = (tmpMoveId) + "";
+        }
+
+        /// <summary>
+        /// zwraca odpowiednią kontrolkę PictureBox dla aktualnego ruchu
+        /// </summary>
+        /// <returns></returns>
+        private PictureBox GetCurrentPictureBox(int moveId)
+        {
+            if (moveId < 0 || moveId >= _moves.Count())
+                return null;
+
+            Move tmpMove = _moves[moveId];
+
             PictureBox tmpPictureBox = new PictureBox();
 
-            switch (_currentMove.faceNumber)
+            switch (tmpMove.faceNumber)
             {
                 case 1:
                     {
@@ -245,10 +276,8 @@ namespace RubikResolverWinForms
                         break;
                     }
             }
-            
-            this._cube.PaintMove(tmpPictureBox.CreateGraphics(), _currentMove, _isReverse);
-            CountMoveTxt.Text = _moves.Count() + "";
-            CurrentMoveTxt.Text = (_moves.IndexOf(_currentMove) + 1) + "";
+
+            return tmpPictureBox;
         }
 
         /// <summary>
@@ -263,17 +292,22 @@ namespace RubikResolverWinForms
                 if (_isReverse)
                 {
                     _isReverse = false;
-                    this.RaisePaintEvent(sender, null);
                 }
                 else
                 {
-                    int currentIndex = _moves.IndexOf(_currentMove);
-                    if (_moves[currentIndex + 1] != null)
-                    {
-                        _currentMove = _moves[currentIndex + 1];
-                        this.RaisePaintEvent(sender, null);
-                    }
+                    if (_currentMoveId + 1 < _moves.Count())
+                        _currentMoveId++;
+                    //int currentIndex = _moves.IndexOf(_currentMove);
+                    //if (_moves[currentIndex + 1] != null)
+                    //{
+                    //    _currentMove = _moves[currentIndex + 1];
+                    //}
                 }
+                
+                PictureBox tmpPictureBox = GetCurrentPictureBox(_currentMoveId);
+                //_cube.Move(tmpPictureBox.CreateGraphics(), _currentMove, _isReverse);
+                _cube.Move(tmpPictureBox.CreateGraphics(), _moves[_currentMoveId], _isReverse);
+                this.RaisePaintEvent(sender, null);
             }
             catch (RubikException ex)
             {
@@ -296,20 +330,29 @@ namespace RubikResolverWinForms
             {
                 if (_isReverse)
                 {
-                    //_currentMove.SetReverse(false);                     //zresetuj reverse na aktualnym ruchu (bo może być ustawione)
-                    int currentIndex = _moves.IndexOf(_currentMove);
-                    if (_moves[currentIndex - 1] != null)
+                    if (_currentMoveId > 0)
+                        _currentMoveId--;
+                    else
                     {
-                        _currentMove = _moves[currentIndex - 1];
-                        //_currentMove.SetReverse(true);
+                        _currentMoveId = -1;
                         this.RaisePaintEvent(sender, null);
+                        return;
                     }
+                    //int currentIndex = _moves.IndexOf(_currentMove);
+                    //if (_moves[currentIndex - 1] != null)
+                    //{
+                    //    _currentMove = _moves[currentIndex - 1];
+                    //}
                 }
                 else
                 {
                     _isReverse = true;
-                    this.RaisePaintEvent(sender, null);
                 }
+
+                PictureBox tmpPictureBox = GetCurrentPictureBox(_currentMoveId);
+                //_cube.Move(tmpPictureBox.CreateGraphics(), _currentMove, _isReverse);
+                _cube.Move(tmpPictureBox.CreateGraphics(), _moves[_currentMoveId], _isReverse);
+                this.RaisePaintEvent(sender, null);
             }
             catch (RubikException ex)
             {

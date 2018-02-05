@@ -24,6 +24,366 @@ namespace RubikResolverEngine
         }
 
         /// <summary>
+        /// zwraca współrzędne sąsiedniego bloku na innej płaszczyźnie
+        /// </summary>
+        /// <param name="edgeBlock"></param>
+        /// <returns></returns>
+        public Coordinate GetNeighbourEdgeBlock(EEdgeBlock edgeBlock)
+        {
+            switch (this.orderNumber)
+            {
+                case 1:
+                    {
+                        #region
+                        switch (edgeBlock)
+                        {
+                            case EEdgeBlock.UpLeft:
+                                {
+                                    return new Coordinate(2, 0);
+                                }
+                            case EEdgeBlock.UpCenter:
+                                {
+                                    return new Coordinate(2,1);
+                                }
+                            case EEdgeBlock.UpRight:
+                                {
+                                    return new Coordinate(2,2);
+                                }
+                            case EEdgeBlock.RightUp:
+                                {
+                                    return new Coordinate(0,2);
+                                }
+                            case EEdgeBlock.RightCenter:
+                                {
+                                    return new Coordinate(0, 1);
+                                }
+                            case EEdgeBlock.RightDown:
+                                {
+                                    return new Coordinate(0, 0);
+                                }
+                            case EEdgeBlock.DownRight:
+                                {
+                                    return new Coordinate(0, 2);
+                                }
+                            case EEdgeBlock.DownCenter:
+                                {
+                                    return new Coordinate(0, 1);
+                                }
+                            case EEdgeBlock.DownLeft:
+                                {
+                                    return new Coordinate(0, 0);
+                                }
+                            case EEdgeBlock.LeftDown:
+                                {
+                                    return new Coordinate(0, 2);
+                                }
+                            case EEdgeBlock.LeftCenter:
+                                {
+                                    return new Coordinate(0, 1);
+                                }
+                            case EEdgeBlock.LeftUp:
+                                {
+                                    return new Coordinate(0, 0);
+                                }
+                        }
+                        #endregion
+                        break;
+                    }
+                case 2:
+                    {
+                        #region
+                        switch (edgeBlock)
+                        {
+                            case EEdgeBlock.UpLeft:
+                                {
+                                    return new Coordinate(0, 0);
+                                }
+                            case EEdgeBlock.UpCenter:
+                                {
+                                    return new Coordinate(1, 0);
+                                }
+                            case EEdgeBlock.UpRight:
+                                {
+                                    return new Coordinate(2, 0);
+                                }
+                            case EEdgeBlock.RightUp:
+                                {
+                                    return new Coordinate(0, 0);
+                                }
+                            case EEdgeBlock.RightCenter:
+                                {
+                                    return new Coordinate(1, 0);
+                                }
+                            case EEdgeBlock.RightDown:
+                                {
+                                    return new Coordinate(2, 0);
+                                }
+                            case EEdgeBlock.DownRight:
+                                {
+                                    return new Coordinate(0, 0);
+                                }
+                            case EEdgeBlock.DownCenter:
+                                {
+                                    return new Coordinate(1, 0);
+                                }
+                            case EEdgeBlock.DownLeft:
+                                {
+                                    return new Coordinate(2, 0);
+                                }
+                            case EEdgeBlock.LeftDown:
+                                {
+                                    return new Coordinate(0, 0);
+                                }
+                            case EEdgeBlock.LeftCenter:
+                                {
+                                    return new Coordinate(1, 0);
+                                }
+                            case EEdgeBlock.LeftUp:
+                                {
+                                    return new Coordinate(2, 0);
+                                }
+                        }
+                        #endregion
+                        break; 
+                    }
+                case 3:
+                    {
+                        #region
+                        switch (edgeBlock)
+                        {
+                            case EEdgeBlock.UpLeft:
+                                {
+                                    return new Coordinate(2, 0);
+                                }
+                            case EEdgeBlock.UpCenter:
+                                {
+                                    return new Coordinate(2, 1);
+                                }
+                            case EEdgeBlock.UpRight:
+                                {
+                                    return new Coordinate(2, 2);
+                                }
+                            case EEdgeBlock.RightUp:
+                                {
+                                    return new Coordinate(0, 0);
+                                }
+                            case EEdgeBlock.RightCenter:
+                                {
+                                    return new Coordinate(1, 0);
+                                }
+                            case EEdgeBlock.RightDown:
+                                {
+                                    return new Coordinate(2, 0);
+                                }
+                            case EEdgeBlock.DownRight:
+                                {
+                                    return new Coordinate(0, 2);
+                                }
+                            case EEdgeBlock.DownCenter:
+                                {
+                                    return new Coordinate(0, 1);
+                                }
+                            case EEdgeBlock.DownLeft:
+                                {
+                                    return new Coordinate(0, 0);
+                                }
+                            case EEdgeBlock.LeftDown:
+                                {
+                                    return new Coordinate(2, 2);
+                                }
+                            case EEdgeBlock.LeftCenter:
+                                {
+                                    return new Coordinate(1,2);
+                                }
+                            case EEdgeBlock.LeftUp:
+                                {
+                                    return new Coordinate(0, 2);
+                                }
+                        }
+                        #endregion
+                        break;
+                    }
+                case 4:
+                    {
+                        #region
+                        switch (edgeBlock)
+                        {
+                            case EEdgeBlock.UpLeft:
+                                {
+                                    return new Coordinate(2, 2);
+                                }
+                            case EEdgeBlock.UpCenter:
+                                {
+                                    return new Coordinate(1, 2);
+                                }
+                            case EEdgeBlock.UpRight:
+                                {
+                                    return new Coordinate(0, 2);
+                                }
+                            case EEdgeBlock.RightUp:
+                                {
+                                    return new Coordinate(2, 2);
+                                }
+                            case EEdgeBlock.RightCenter:
+                                {
+                                    return new Coordinate(1, 2);
+                                }
+                            case EEdgeBlock.RightDown:
+                                {
+                                    return new Coordinate(0, 2);
+                                }
+                            case EEdgeBlock.DownRight:
+                                {
+                                    return new Coordinate(2, 2);
+                                }
+                            case EEdgeBlock.DownCenter:
+                                {
+                                    return new Coordinate(1, 2);
+                                }
+                            case EEdgeBlock.DownLeft:
+                                {
+                                    return new Coordinate(0, 2);
+                                }
+                            case EEdgeBlock.LeftDown:
+                                {
+                                    return new Coordinate(2, 2);
+                                }
+                            case EEdgeBlock.LeftCenter:
+                                {
+                                    return new Coordinate(1, 2);
+                                }
+                            case EEdgeBlock.LeftUp:
+                                {
+                                    return new Coordinate(0, 2);
+                                }
+                        }
+                        #endregion
+                        break;
+                    }
+                case 5:
+                    {
+                        #region
+                        switch (edgeBlock)
+                        {
+                            case EEdgeBlock.UpLeft:
+                                {
+                                    return new Coordinate(2, 0);
+                                }
+                            case EEdgeBlock.UpCenter:
+                                {
+                                    return new Coordinate(2, 1);
+                                }
+                            case EEdgeBlock.UpRight:
+                                {
+                                    return new Coordinate(2, 2);
+                                }
+                            case EEdgeBlock.RightUp:
+                                {
+                                    return new Coordinate(2, 0);
+                                }
+                            case EEdgeBlock.RightCenter:
+                                {
+                                    return new Coordinate(2, 1);
+                                }
+                            case EEdgeBlock.RightDown:
+                                {
+                                    return new Coordinate(2, 2);
+                                }
+                            case EEdgeBlock.DownRight:
+                                {
+                                    return new Coordinate(0, 2);
+                                }
+                            case EEdgeBlock.DownCenter:
+                                {
+                                    return new Coordinate(0, 1);
+                                }
+                            case EEdgeBlock.DownLeft:
+                                {
+                                    return new Coordinate(0, 0);
+                                }
+                            case EEdgeBlock.LeftDown:
+                                {
+                                    return new Coordinate(2, 2);
+                                }
+                            case EEdgeBlock.LeftCenter:
+                                {
+                                    return new Coordinate(2, 1);
+                                }
+                            case EEdgeBlock.LeftUp:
+                                {
+                                    return new Coordinate(2, 2);
+                                }
+                        }
+                        #endregion
+                        break;
+                    }
+                case 6:
+                    {
+                        #region
+                        switch (edgeBlock)
+                        {
+                            case EEdgeBlock.UpLeft:
+                                {
+                                    return new Coordinate(2, 0);
+                                }
+                            case EEdgeBlock.UpCenter:
+                                {
+                                    return new Coordinate(2, 1);
+                                }
+                            case EEdgeBlock.UpRight:
+                                {
+                                    return new Coordinate(2, 2);
+                                }
+                            case EEdgeBlock.RightUp:
+                                {
+                                    return new Coordinate(2, 2);
+                                }
+                            case EEdgeBlock.RightCenter:
+                                {
+                                    return new Coordinate(1, 2);
+                                }
+                            case EEdgeBlock.RightDown:
+                                {
+                                    return new Coordinate(0, 2);
+                                }
+                            case EEdgeBlock.DownRight:
+                                {
+                                    return new Coordinate(0, 2);
+                                }
+                            case EEdgeBlock.DownCenter:
+                                {
+                                    return new Coordinate(0, 1);
+                                }
+                            case EEdgeBlock.DownLeft:
+                                {
+                                    return new Coordinate(0, 0);
+                                }
+                            case EEdgeBlock.LeftDown:
+                                {
+                                    return new Coordinate(0, 0);
+                                }
+                            case EEdgeBlock.LeftCenter:
+                                {
+                                    return new Coordinate(1, 0);
+                                }
+                            case EEdgeBlock.LeftUp:
+                                {
+                                    return new Coordinate(2, 0);
+                                }
+                        }
+                        #endregion
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+
+            throw new RubikException("Błąd podczas pobierania współrzednych dla sąsiedniego bloku - GetNeighbourEdgeBlock");
+        }
+
+        /// <summary>
         /// zwraca numer sąsiedniej ścianki według podanego parametru
         /// </summary>
         /// <param name="neighbour"></param>
@@ -432,19 +792,26 @@ namespace RubikResolverEngine
                 var sLeft = GetSurface(sCenter.GetNeighbourSurfaceOrderNumber(ENeighbourSurface.Left));
                 var sRight = GetSurface(sCenter.GetNeighbourSurfaceOrderNumber(ENeighbourSurface.Right));
 
-                Color tmpColor;
-                //Surface tmpSurface;
-                //Color[,] tmpCenterColors = new Color[3, 3];
+                //var tmpCenterColors = sCenter.GetColors();
+                //var tmpUpColors = sUp.GetColors();
+                //var tmpDownColors = sDown.GetColors();
+                //var tmpRightColors = sRight.GetColors();
+                //var tmpLeftColors = sLeft.GetColors();
+                Color[,] tmpCenterColors = new Color[3, 3];
+                Color[,] tmpUpColors = new Color[3, 3];
+                Color[,] tmpDownColors = new Color[3, 3];
+                Color[,] tmpRightColors = new Color[3, 3];
+                Color[,] tmpLeftColors = new Color[3, 3];
+                Array.Copy(sCenter.GetColors(), tmpCenterColors, 9);
+                Array.Copy(sUp.GetColors(), tmpUpColors, 9);
+                Array.Copy(sDown.GetColors(), tmpDownColors, 9);
+                Array.Copy(sRight.GetColors(), tmpRightColors, 9);
+                Array.Copy(sLeft.GetColors(), tmpLeftColors, 9);
 
                 if ((!isReverse && move.clockwise) || (isReverse && !move.clockwise))
                 //if (move.clockwise)
                 {
-                    var tmpCenterColors = sCenter.GetColors();
-                    var tmpUpColors = sUp.GetColors();
-                    var tmpDownColors = sDown.GetColors();
-                    var tmpRightColors = sRight.GetColors();
-                    var tmpLeftColors = sLeft.GetColors();
-
+                    #region
                     sCenter.SetColor(0, 0, tmpCenterColors[2, 0]);
                     sCenter.SetColor(0, 1, tmpCenterColors[1, 0]);
                     sCenter.SetColor(0, 2, tmpCenterColors[0, 0]);
@@ -452,13 +819,77 @@ namespace RubikResolverEngine
                     sCenter.SetColor(1, 2, tmpCenterColors[0, 1]);
                     sCenter.SetColor(2, 0, tmpCenterColors[2, 2]);
                     sCenter.SetColor(2, 1, tmpCenterColors[1, 2]);
-
-                    //todo: i tu jest problem bo nie mam info jaką krawedzią sąsiadują
+                    sCenter.SetColor(2, 2, tmpCenterColors[0, 2]);
                     
+                    sRight.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightUp).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightUp).y,
+                        tmpUpColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpLeft).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpLeft).y]);
+                    sRight.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightCenter).y,
+                        tmpUpColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpCenter).y]);
+                    sRight.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightDown).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightDown).y,
+                         tmpUpColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpRight).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpRight).y]);
+
+                    sDown.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownRight).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownRight).y,
+                        tmpRightColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightUp).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightUp).y]);
+                    sDown.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownCenter).y,
+                        tmpRightColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightCenter).y]);
+                    sDown.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownLeft).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownLeft).y,
+                         tmpRightColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightDown).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightDown).y]);
+
+                    sLeft.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftDown).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftDown).y,
+                        tmpDownColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownRight).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownRight).y]);
+                    sLeft.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftCenter).y,
+                        tmpDownColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownCenter).y]);
+                    sLeft.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftUp).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftUp).y,
+                         tmpDownColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownLeft).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownLeft).y]);
+
+                    sUp.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpLeft).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpLeft).y,
+                        tmpLeftColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftDown).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftDown).y]);
+                    sUp.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpCenter).y,
+                        tmpLeftColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftCenter).y]);
+                    sUp.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpRight).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpRight).y,
+                         tmpLeftColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftUp).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftUp).y]);
+                    #endregion
                 }
                 else
                 {
+                    #region
+                    sCenter.SetColor(0, 0, tmpCenterColors[0, 2]);
+                    sCenter.SetColor(0, 1, tmpCenterColors[1, 2]);
+                    sCenter.SetColor(0, 2, tmpCenterColors[2, 2]);
+                    sCenter.SetColor(1, 0, tmpCenterColors[0, 1]);
+                    sCenter.SetColor(1, 2, tmpCenterColors[2, 1]);
+                    sCenter.SetColor(2, 0, tmpCenterColors[0, 0]);
+                    sCenter.SetColor(2, 1, tmpCenterColors[1, 0]);
+                    sCenter.SetColor(2, 2, tmpCenterColors[2, 0]);
 
+                    sRight.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightUp).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightUp).y,
+                        tmpDownColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownRight).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownRight).y]);
+                    sRight.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightCenter).y,
+                        tmpDownColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownCenter).y]);
+                    sRight.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightDown).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightDown).y,
+                         tmpDownColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownLeft).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownLeft).y]);
+
+                    sDown.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownRight).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownRight).y,
+                        tmpLeftColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftDown).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftDown).y]);
+                    sDown.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownCenter).y,
+                        tmpLeftColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftCenter).y]);
+                    sDown.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownLeft).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.DownLeft).y,
+                         tmpLeftColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftUp).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftUp).y]);
+
+                    sLeft.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftDown).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftDown).y,
+                        tmpUpColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpLeft).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpLeft).y]);
+                    sLeft.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftCenter).y,
+                        tmpUpColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpCenter).y]);
+                    sLeft.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftUp).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.LeftUp).y,
+                         tmpUpColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpRight).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpRight).y]);
+
+                    sUp.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpLeft).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpLeft).y,
+                        tmpRightColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightUp).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightUp).y]);
+                    sUp.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpCenter).y,
+                        tmpRightColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightCenter).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightCenter).y]);
+                    sUp.SetColor(sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpRight).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.UpRight).y,
+                         tmpRightColors[sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightDown).x, sCenter.GetNeighbourEdgeBlock(EEdgeBlock.RightDown).y]);
+                    #endregion
                 }
 
                 return surfaces;
@@ -492,6 +923,9 @@ namespace RubikResolverEngine
         {
             try
             {
+                if (move == null)
+                    return;
+
                 Pen pen = new Pen(Color.FromArgb(255, 0, 0, 0), 6);
 
                 if ((!isReverse && move.clockwise) || (isReverse && !move.clockwise))
@@ -558,6 +992,17 @@ namespace RubikResolverEngine
         //}
     }
 
+    public struct Coordinate
+    {
+        public int x, y;
+
+        public Coordinate(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
     /// <summary>
     /// własna klasa na świadome wyjątki
     /// </summary>
@@ -569,13 +1014,13 @@ namespace RubikResolverEngine
         }
     }
 
-    /// <summary>
-    /// rodzaej ruchów - raczej nie będzie używane
-    /// </summary>
-    public enum EMove
-    {
-        R,L,U,D,F,M,B
-    }
+    ///// <summary>
+    ///// rodzaej ruchów - raczej nie będzie używane
+    ///// </summary>
+    //public enum EMove
+    //{
+    //    R,L,U,D,F,M,B
+    //}
 
     /// <summary>
     /// określa sąsiedztwo dla danej ścianki
@@ -583,5 +1028,13 @@ namespace RubikResolverEngine
     public enum ENeighbourSurface
     {
         Up, Down, Left, Right
+    }
+
+    /// <summary>
+    /// określa sąsiedni klocek po krawędzi patrząc na wprost płaszczyzny
+    /// </summary>
+    public enum EEdgeBlock
+    {
+        UpLeft, UpCenter, UpRight, RightUp, RightCenter, RightDown, DownRight, DownCenter, DownLeft, LeftDown, LeftCenter, LeftUp
     }
 }
