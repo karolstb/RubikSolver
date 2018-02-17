@@ -412,6 +412,10 @@ namespace RubikResolverEngine
                                 {
                                     return 4;
                                 }
+                            case ENeighbourSurface.Back:
+                                {
+                                    return 5;
+                                }
                         }
                         break;
                     }
@@ -434,6 +438,10 @@ namespace RubikResolverEngine
                             case ENeighbourSurface.Right:
                                 {
                                     return 3;
+                                }
+                            case ENeighbourSurface.Back:
+                                {
+                                    return 4;
                                 }
                         }
                         break;
@@ -458,6 +466,10 @@ namespace RubikResolverEngine
                                 {
                                     return 4;
                                 }
+                            case ENeighbourSurface.Back:
+                                {
+                                    return 6;
+                                }
                         }
                         break;
                     }
@@ -480,6 +492,10 @@ namespace RubikResolverEngine
                             case ENeighbourSurface.Right:
                                 {
                                     return 6;
+                                }
+                            case ENeighbourSurface.Back:
+                                {
+                                    return 2;
                                 }
                         }
                         break;
@@ -504,6 +520,10 @@ namespace RubikResolverEngine
                                 {
                                     return 4;
                                 }
+                            case ENeighbourSurface.Back:
+                                {
+                                    return 1;
+                                }
                         }
                         break;
                     }
@@ -526,6 +546,10 @@ namespace RubikResolverEngine
                             case ENeighbourSurface.Right:
                                 {
                                     return 4;
+                                }
+                            case ENeighbourSurface.Back:
+                                {
+                                    return 3;
                                 }
                         }
                         break;
@@ -959,6 +983,143 @@ namespace RubikResolverEngine
 
             }
         }
+
+        /// <summary>
+        /// zwraca numer ściany, gdzie centrom jest podany jako argument kolor
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public int GetFaceNoForColor(Color color)
+        {
+            try
+            {
+                for (int i = 0; i < surfaces.Count(); i++)
+                    if (surfaces[i].GetColor(1, 1) == color)
+                        return i;
+            }
+            catch (RubikException ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            throw new RubikException("Nie w kostce rubika koloru " + color.Name);
+        }
+
+        #region resolver
+
+        /// <summary>
+        /// sprwadza czy ścianka o podanym numerze jest ułożona
+        /// </summary>
+        /// <param name="faceNo"></param>
+        /// <returns></returns>
+        public bool IsSurfaceComplete(int faceNo)
+        {
+            try
+            {
+                var s = GetSurface(faceNo);
+                var color = s.GetColor(0, 0);
+                for (int i = 0; i < 3; i++)
+                    for (int j = 0; j < 3; j++)
+                        if (s.GetColor(i, j) != color)
+                            return false;
+            }
+            catch (RubikException ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// sprawdza czy całość jest już ułożona
+        /// </summary>
+        /// <returns></returns>
+        public bool IsAllComplete()
+        {
+            try
+            {
+                for (int i = 1; i <= surfaces.Count(); i++)
+                    if (!IsSurfaceComplete(i))
+                        return false;
+            }
+            catch (RubikException ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// sprawdza czy jest ułożony poprawnie krzyż z kolorami na danej ścianie
+        /// </summary>
+        /// <param name="faceNo"></param>
+        /// <returns></returns>
+        public bool IsCrossComplete(int faceNo)
+        {
+            try
+            {
+                var s = GetSurface(faceNo);
+
+                var centerColor = s.GetColor(1, 1);
+
+                //góra
+                if (s.GetColor(0, 1) != centerColor)
+                    return false;
+                Surface upNeighbour = GetSurface(s.GetNeighbourSurfaceOrderNumber(ENeighbourSurface.Up));
+                Coordinate upCor = s.GetNeighbourEdgeBlock(EEdgeBlock.UpCenter);
+                if (upNeighbour.GetColor(upCor.x, upCor.y) != upNeighbour.GetColor(1, 1))
+                    return false;
+
+                //right
+                if (s.GetColor(1, 2) != centerColor)
+                    return false;
+                Surface rightNeighbour = GetSurface(s.GetNeighbourSurfaceOrderNumber(ENeighbourSurface.Right));
+                Coordinate rightCor = s.GetNeighbourEdgeBlock(EEdgeBlock.RightCenter);
+                if (rightNeighbour.GetColor(rightCor.x, rightCor.y) != rightNeighbour.GetColor(1, 1))
+                    return false;
+
+                //down
+                if (s.GetColor(2, 1) != centerColor)
+                    return false;
+                Surface downNeighbour = GetSurface(s.GetNeighbourSurfaceOrderNumber(ENeighbourSurface.Down));
+                Coordinate downCor = s.GetNeighbourEdgeBlock(EEdgeBlock.DownCenter);
+                if (downNeighbour.GetColor(downCor.x, downCor.y) != downNeighbour.GetColor(1, 1))
+                    return false;
+
+                //left
+                if (s.GetColor(1, 0) != centerColor)
+                    return false;
+                Surface leftNeighbour = GetSurface(s.GetNeighbourSurfaceOrderNumber(ENeighbourSurface.Left));
+                Coordinate leftCor = s.GetNeighbourEdgeBlock(EEdgeBlock.LeftCenter);
+                if (leftNeighbour.GetColor(leftCor.x, leftCor.y) != leftNeighbour.GetColor(1, 1))
+                    return false;
+            }
+            catch (RubikException ex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return true;
+        }
+        #endregion
     }
 
     /// <summary>
@@ -1027,7 +1188,7 @@ namespace RubikResolverEngine
     /// </summary>
     public enum ENeighbourSurface
     {
-        Up, Down, Left, Right
+        Up, Down, Left, Right, Back
     }
 
     /// <summary>

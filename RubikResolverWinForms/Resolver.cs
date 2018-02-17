@@ -171,6 +171,10 @@ namespace RubikResolverWinForms
             //koniec test
 
             //DrawCube();
+
+            //test
+            _cube.IsAllComplete();
+            _cube.IsCrossComplete(2);
         }
 
         /// <summary>
